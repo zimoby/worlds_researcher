@@ -6,7 +6,7 @@ import { LevelsIndicators } from "../Elements/levelsIndicators";
 import { FlickeringHtmlEffect } from "../../../effects/AppearingUiEffectWrapper";
 import { DroneMoveAngleUI } from "../../drone/droneMoveAngle";
 import { useModalPriority } from "../../../hooks/modalPriority";
-import { PlanetChunks } from "../Elements/planetChunks";
+import { MiniMap } from "../Elements/planetChunks";
 import { EducationSteps } from "../Elements/eduSteps";
 import { DirectionIndicators } from "../Elements/directionIndicators";
 
@@ -49,7 +49,7 @@ export const CenterScreenPanel = () => {
                   <LevelsIndicators />
                 </div>
                 <div className="absolute bottom-0 left-0 flex flex-row items-end justify-end gap-3 p-5">
-                  <PlanetChunks />
+                  <MiniMap />
                   <DirectionIndicators />
                 </div>
               </FlickeringHtmlEffect>

@@ -38,7 +38,10 @@ export const ModalWrapper = ({
       style={{ display: showModal ? "flex" : "none" }}
     >
       <div
-        className="relative bg-black/80 w-96 h-1/2 flex flex-col border border-uilines aug-border-yellow-500"
+        className="relative bg-black/80 w-96 h-fit flex flex-col border border-uilines aug-border-yellow-500"
+        style={{
+          maxHeight: "calc(100% - 10rem)",
+        }}
         data-augmented-ui="border tl-2-clip-x br-2-clip-x --aug-border-bg"
       >
         <div className="flex justify-end items-center">

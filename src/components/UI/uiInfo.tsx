@@ -4,7 +4,6 @@ import { BeaconsInfo } from "../beacons/BeaconsInfo";
 import { SystemControls } from "./controlsUI/planetControls";
 import { ProgressBlock } from "./Panels/ProgressPanel";
 import { TitlePanel } from "./Panels/TitlePanel";
-import { ScanerParamPanel } from "./Panels/ScanerParamsPanel";
 import { CollectedResourcesPanel } from "./Panels/CollectedResourcesPanel";
 import { PlanetDataPanel } from "./Panels/PlanetDataPanel";
 import { LogsPanel } from "./Panels/LogsPanel";
@@ -122,7 +121,6 @@ export const UiInfo = () => {
           <>
             <PlanetDataPanel />
             <CollectedResourcesPanel />
-            <ScanerParamPanel />
             <DronePanel />
           </>
           <EmptyGrowPanel />

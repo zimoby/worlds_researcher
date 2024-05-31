@@ -39,7 +39,7 @@ const MinimapCell: React.FC<MinimapCellProps> = React.memo(({ cellType }) => {
 
 MinimapCell.displayName = "MinimapCell";
 
-export const PlanetChunks = ({ size = 5, hideControls = false }) => {
+export const MiniMap = ({ size = 5, hideControls = false }) => {
   const locationsHistory = useGameStore((state) => state.locationsHistory);
   const currentLocation = useGameStore((state) => state.currentLocation);
   const artifacts = useGameStore((state) => state.artifacts);
