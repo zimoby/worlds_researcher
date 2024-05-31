@@ -72,7 +72,6 @@ export const BasicGridShader = ({
 
   const { deltaX, deltaY } = useCalculateDeltas();
   const { speedRef: increasingSpeedRef } = useIncreasingSpeed(0, 1, 0.01, 2);
-  // const { updateLocationAndOffset } = useUpdateMapMoving();
 
   useEffect(() => {
     generateGridGeometry();
@@ -118,25 +117,20 @@ export const BasicGridShader = ({
 
   useFrame((_, delta) => {
     if (resetValues) {
-      // console.log("resetValues basicGridShader", resetValues);
       offset.current.x = 0;
       offset.current.y = 0;
     }
 
-    // offset.current.x += deltaX;
-    // offset.current.y += deltaY;
     offset.current.x += deltaX * (delta * 100) * increasingSpeedRef.current;
     offset.current.y += deltaY * (delta * 100) * increasingSpeedRef.current;
 
     if (
       planeRef.current &&
       planeRef.current.material instanceof ShaderMaterial &&
-      planeRef.current.material.uniforms.offset?.value
+      planeRef.current.material.uniforms.offset?.value instanceof Vector2
     ) {
-      planeRef.current.material.uniforms.offset.value.set(
-        offset.current.x * 0.01,
-        -offset.current.y * 0.01,
-      );
+      const offsetValue = planeRef.current.material.uniforms.offset.value;
+      offsetValue.set(offset.current.x * 0.01, -offset.current.y * 0.01);
     }
   });
 

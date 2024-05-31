@@ -16,12 +16,12 @@ import { generateTerrain } from "./generateTerrain";
 import { NoiseFunction2D, createNoise2D } from "simplex-noise";
 import seedrandom from "seedrandom";
 import {
-  consoleLog,
   useCalculateDeltas,
   useResetOffset,
   useUpdateMapMoving,
 } from "../../utils/functions";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
+import { ResourceType } from "../../store/worldParamsSlice";
 
 const generateIndices = (
   widthCount: number,
@@ -59,7 +59,6 @@ export const Terrain = () => {
   const activePosition = useGameStore((state) => state.activePosition);
   const playerPoints = useGameStore((state) => state.playerPoints);
   const terrainColors = useGameStore((state) => state.terrainColors);
-  // const resetValues = useGameStore((state) => state.resetValues);
 
   const widthCount = Math.floor(width / resolution);
   const depthCount = Math.floor(depth / resolution) + 1;
@@ -75,8 +74,8 @@ export const Terrain = () => {
   const positions = useRef(
     new Float32Array((widthCount + 1) * (depthCount + 1) * 3),
   );
-  const resources = useRef(
-    new Array((widthCount + 1) * (depthCount + 1)).fill(null),
+  const resources = useRef<ResourceType[]>(
+    new Array<ResourceType>((widthCount + 1) * (depthCount + 1)).fill("empty"),
   );
 
   const indices = useMemo(() => {
@@ -144,9 +143,6 @@ export const Terrain = () => {
   const { speedRef: increasingSpeedRef } = useIncreasingSpeed(0, 1, 0.01, 2);
 
   useFrame((_, delta) => {
-    // offset.current.x += deltaX;
-    // offset.current.y += deltaY;
-    // consoleLog("delta", delta * 100);
     offset.current.x += deltaX * (delta * 100) * increasingSpeedRef.current;
     offset.current.y += deltaY * (delta * 100) * increasingSpeedRef.current;
 
@@ -156,7 +152,6 @@ export const Terrain = () => {
 
     if (resources[0] !== null && terrainLoading) {
       useGameStore.setState({ terrainLoading: false });
-      consoleLog("terrainLoading finished");
     }
   });
 
