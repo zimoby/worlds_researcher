@@ -19,13 +19,13 @@ const ChangeLogModal = () => {
 
   return (
     <ModalWrapper title="Change Log" modalName="showChangeLogModal">
-      <div className="p-4 overflow-y-auto">
+      <div className="overflow-y-auto p-4">
         {changeLog.map((entry, index) => (
           <div key={index} className="mb-4">
             <h3 className="text-xl font-semibold">
               {entry.version} - {entry.date}
             </h3>
-            <ul className="list-disc list-inside">
+            <ul className="list-inside list-disc">
               {entry.changes.map((change, idx) => (
                 <li key={idx}>{change}</li>
               ))}

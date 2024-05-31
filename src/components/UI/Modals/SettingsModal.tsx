@@ -19,8 +19,8 @@ const ToggleButton = ({
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }) => {
   return (
-    <div className="w-3/4 h-fit py-1 flex justify-between items-center text-uitext text-lg hover:bg-uilines hover:text-neutral-900">
-      <label htmlFor={label} className="pl-5 tracking-tight leading-4 mr-2">
+    <div className="flex h-fit w-3/4 items-center justify-between py-1 text-lg text-uitext hover:bg-uilines hover:text-neutral-900">
+      <label htmlFor={label} className="mr-2 pl-5 leading-4 tracking-tight">
         {label}
       </label>
       <input
@@ -49,8 +49,8 @@ export const SettingsModal = () => {
 
   return (
     <ModalWrapper title="Settings" modalName="showSettingsModal">
-      <div className=" w-full mb-8 mt-6 flex flex-col justify-center items-center text-uitext text-2xl">
-        <div className="w-full mb-3 flex flex-col justify-center items-center">
+      <div className=" mb-8 mt-6 flex w-full flex-col items-center justify-center text-2xl text-uitext">
+        <div className="mb-3 flex w-full flex-col items-center justify-center">
           <ToggleButton
             label="Show start screen"
             checked={startScreen}
@@ -69,7 +69,7 @@ export const SettingsModal = () => {
             }
           />
         </div>
-        <div className="w-full mb-3 flex flex-col justify-center items-center">
+        <div className="mb-3 flex w-full flex-col items-center justify-center">
           <ToggleButton
             label="Invert keys direction"
             checked={invertDirection}
@@ -81,7 +81,7 @@ export const SettingsModal = () => {
             }
           />
         </div>
-        <div className="w-full mb-3 flex flex-col justify-center items-center">
+        <div className="mb-3 flex w-full flex-col items-center justify-center">
           <ToggleButton
             label="Disable Animations"
             checked={disableAnimations}

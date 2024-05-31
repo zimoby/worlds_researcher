@@ -6,10 +6,10 @@ export const TitlePanel = () => {
 
   return (
     <div
-      className="w-[20rem] h-16 border text-xs text-uitext flex flex-wrap justify-end items-end px-1 bg-neutral-900 border-uilines"
+      className="flex h-16 w-80 flex-wrap items-end justify-end border border-uilines bg-neutral-900 px-1 text-xs text-uitext"
       style={{ opacity: uiPanelsState.titlePanel.opacity }}
     >
-      <div className="h-fit w-full px-1 content-end orbitron text-2xl text-end uppercase leading-6 text-uitext">
+      <div className="orbitron h-fit w-full content-end px-1 text-end text-2xl uppercase leading-6 text-uitext">
         {`Planet-${worldParams.seed.value}`}
       </div>
     </div>

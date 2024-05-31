@@ -33,13 +33,13 @@ export const CheckBox = ({ label, value, onUpdate }: CheckBoxProps) => {
   };
 
   return (
-    <div className="relative flex flex-row text-xs justify-start items-center">
-      <div className="relative w-32 truncate select-none">{label}</div>
+    <div className="relative flex flex-row items-center justify-start text-xs">
+      <div className="relative w-32 select-none truncate">{label}</div>
       <input
         type="checkbox"
         checked={value}
         onChange={handleChange}
-        className="h-4 w-4 cursor-pointer appearance-none rounded-sm"
+        className="size-4 cursor-pointer appearance-none rounded-sm"
         style={{
           background: value
             ? "rgba(128, 0, 128, 0.7)"
@@ -75,11 +75,11 @@ export const SliderWithInput = ({
   }, [value]);
 
   return (
-    <div className="relative flex flex-col space-y-0 text-xs justify-center items-start">
-      <div className="relative w-32 truncate select-none">{label}</div>
-      <div className="w-full flex flex-row justify-between space-x-1 items-center">
+    <div className="relative flex flex-col items-start justify-center space-y-0 text-xs">
+      <div className="relative w-32 select-none truncate">{label}</div>
+      <div className="flex w-full flex-row items-center justify-between space-x-1">
         <input
-          className="h-2 mr-2 cursor-pointer appearance-none rounded-sm"
+          className="mr-2 h-2 cursor-pointer appearance-none rounded-sm"
           style={{
             background: backgroundSliderCalc(localValue, min, max),
           }}
@@ -93,7 +93,7 @@ export const SliderWithInput = ({
           onKeyUp={handleStepChange}
         />
         <input
-          className="h-hull m-0 w-12 rounded-sm border-transparent bg-black/20 p-0 text-left text-xs text-uitext"
+          className="m-0 h-full w-12 rounded-sm border-transparent bg-black/20 p-0 text-left text-xs text-uitext"
           min={min.toString()}
           max={max.toString()}
           step={currentStep.toString()}

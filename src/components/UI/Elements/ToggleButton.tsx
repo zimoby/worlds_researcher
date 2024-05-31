@@ -11,9 +11,9 @@ export const ToggleButton = ({
 }) => {
   return (
     <button
-      className={`w-fit h-fit px-2 border text-sm ${
+      className={`size-fit border px-2 text-sm ${
         state ? "bg-red-700" : ""
-      }  hover:border-yellow-400  hover:bg-yellow-400 cursor-pointer uppercase  hover:text-neutral-900`}
+      }  cursor-pointer  uppercase hover:border-yellow-400 hover:bg-yellow-400  hover:text-neutral-900`}
       onClick={onClick}
     >
       {text}: {state ? "off" : "on"}

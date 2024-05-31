@@ -80,7 +80,7 @@ export const UiInfo = () => {
       <SettingsModal />
       <AboutModal />
       <div
-        className="absolute top-0 left-0 h-16 flex justify-between gap-1 bg-transparent"
+        className="absolute left-0 top-0 flex h-16 justify-between gap-1 bg-transparent"
         style={{
           width: "calc(100vw - 13.23rem)",
         }}
@@ -109,7 +109,7 @@ export const UiInfo = () => {
         </FlickeringHtmlEffect>
       </div>
       <div
-        className="absolute flex justify-start items-start gap-1 bg-transparent"
+        className="absolute flex items-start justify-start gap-1 bg-transparent"
         style={{
           top: "4.25rem",
         }}
@@ -127,7 +127,7 @@ export const UiInfo = () => {
           <SimpleWarningLines size="h-16" />
         </FlickeringHtmlEffect>
       </div>
-      <div className="absolute bottom-0 w-full flex justify-start items-end gap-1 bg-transparent">
+      <div className="absolute bottom-0 flex w-full items-end justify-start gap-1 bg-transparent">
         <FlickeringHtmlEffect classStyles="w-full flex flex-none space-x-1">
           <EventsPanel />
           <LogsPanel />

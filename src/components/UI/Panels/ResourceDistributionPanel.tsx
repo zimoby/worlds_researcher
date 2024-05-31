@@ -41,7 +41,7 @@ export const BeaconManagementPanel = () => {
   return (
     <BasicPanelWrapper titleText="Beacon Management">
       {beacons.map((beacon) => (
-        <div key={beacon.id} className="flex justify-between items-center">
+        <div key={beacon.id} className="flex items-center justify-between">
           <span>Beacon {beacon.id}</span>
           <div>
             <button onClick={() => handleRemoveBeacon(beacon.id)}>
@@ -64,7 +64,7 @@ export const ResourceExtractionPanel = () => {
   return (
     <BasicPanelWrapper titleText="Resource Extraction">
       {extractionMethods.map((method) => (
-        <div key={method.id} className="flex justify-between items-center mb-2">
+        <div key={method.id} className="mb-2 flex items-center justify-between">
           <span>{method.name}</span>
           <div>
             <span>Time: {method.time}s</span>

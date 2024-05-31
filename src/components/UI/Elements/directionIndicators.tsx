@@ -13,11 +13,11 @@ export const DirectionIndicators = () => {
 
   return (
     <div className="mx-6 my-4" style={{ opacity }}>
-      <div className="size-12 grid grid-cols-2 -rotate-45">
+      <div className="grid size-12 -rotate-45 grid-cols-2">
         {movementDirections.map((direction, index) => (
           <div
             key={index}
-            className={`bg-neutral-900 size-5 border border-uilines flex justify-center items-center uppercase text-2xs cursor-pointer hover:bg-uilines hover:text-neutral-900 ${
+            className={`flex size-5 cursor-pointer items-center justify-center border border-uilines bg-neutral-900 text-2xs uppercase hover:bg-uilines hover:text-neutral-900 ${
               moveDirection.x === direction.x && moveDirection.y === direction.y
                 ? "bg-uilines text-neutral-900"
                 : "text-uitext"

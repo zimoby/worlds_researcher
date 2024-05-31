@@ -17,11 +17,11 @@ export const CollectedResourcesPanel = () => {
 
   return (
     <BasicPanelWrapper titleText="Collected Resources:" opacity={opacity}>
-      <div className="w-full p-1 m-0 flex flex-wrap justify-center items-center">
+      <div className="m-0 flex w-full flex-wrap items-center justify-center p-1">
         {Object.entries(collectedResources).map(([resource, count], index) => (
           <div
             key={resource}
-            className="w-1/2 flex flex-col text-center justify-start items-center"
+            className="flex w-1/2 flex-col items-center justify-start text-center"
             onMouseEnter={() => setHoveredResource(resource)}
             onMouseLeave={() => setHoveredResource(null)}
             style={{

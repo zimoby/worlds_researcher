@@ -35,7 +35,7 @@ export const CenterScreenPanel = () => {
             >
               <FlickeringHtmlEffect classStyles="w-full h-full">
                 <div
-                  className=" h-full w-full aug-border-yellow-500"
+                  className=" aug-border-yellow-500 size-full"
                   data-augmented-ui="border tl-2-clip-x br-2-clip-x --aug-border-bg"
                 />
                 <div className="absolute bottom-3 right-0">
@@ -44,7 +44,7 @@ export const CenterScreenPanel = () => {
                 <div className="absolute left-1 top-6 flex flex-row items-start justify-end gap-3 p-2">
                   <EducationSteps />
                 </div>
-                <div className="absolute top-0 right-0 flex flex-row items-start justify-end gap-3 p-2">
+                <div className="absolute right-0 top-0 flex flex-row items-start justify-end gap-3 p-2">
                   <DroneMoveAngleUI />
                   <LevelsIndicators />
                 </div>

@@ -32,7 +32,7 @@ export const SinePanel = () => {
 
   return (
     <div
-      className="w-72 h-full border border-uilines overflow-hidden"
+      className="h-full w-72 overflow-hidden border border-uilines"
       style={{
         backgroundImage:
           "linear-gradient(to right, var(--color-uitext) 0.5px, transparent 0.5px), linear-gradient(to bottom, var(--color-uitext) 0.5px, transparent 0.5px)",

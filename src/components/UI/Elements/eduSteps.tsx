@@ -46,11 +46,11 @@ export const EducationSteps = () => {
           <div>
             <p className=" orbitron text-uitext">Tutor Steps:</p>
           </div>
-          <div className="flex w-44 flex-col space-y-1 justify-center items-start">
+          <div className="flex w-44 flex-col items-start justify-center space-y-1">
             {eduStepsNames.map((step, index) => (
               <div
                 key={step.id}
-                className={`w-full flex flex-row px-2 cursor-pointer border-l-8 border-l-uilines hover:bg-uilines hover:text-neutral-900 ${currentEduStep === index ? "bg-uilines text-neutral-900 " : " border border-uilines text-uitext"}`}
+                className={`flex w-full cursor-pointer flex-row border-l-8 border-l-uilines px-2 hover:bg-uilines hover:text-neutral-900 ${currentEduStep === index ? "bg-uilines text-neutral-900 " : " border border-uilines text-uitext"}`}
                 onClick={() => changeEduIndex(step.startIndex)}
               >
                 {currentEduStep === index && (
@@ -60,7 +60,7 @@ export const EducationSteps = () => {
               </div>
             ))}
             <div
-              className={`w-fit mt-2 flex text-xs flex-row px-2 cursor-pointer border-l-uilines hover:bg-uilines hover:text-neutral-900 border border-uilines text-uitext`}
+              className={`mt-2 flex w-fit cursor-pointer flex-row border border-uilines px-2 text-xs text-uitext hover:bg-uilines hover:text-neutral-900`}
               onClick={finishTutorial}
             >
               Skip Tutor
@@ -71,7 +71,7 @@ export const EducationSteps = () => {
       {!educationMode && (
         <div>
           <button
-            className="orbitron uppercase border border-uilines px-2 text-xs text-uitext cursor-pointer hover:text-neutral-900 hover:bg-uilines"
+            className="orbitron cursor-pointer border border-uilines px-2 text-xs uppercase text-uitext hover:bg-uilines hover:text-neutral-900"
             onClick={() => changeEduIndex()}
           >
             Tutorial

@@ -14,7 +14,7 @@ export const SimpleWarningLines = ({
   return (
     <div
       className={`warning-sign3 ${classes} flex ${
-        size === "" ? "flex-grow" : size
+        size === "" ? "grow" : size
       } aug-border-yellow-500`}
       data-augmented-ui={`border br-clip-x --aug-border-bg`}
       style={{ opacity }}
@@ -33,7 +33,7 @@ export const WarningBlock = () => {
       {weather.toLowerCase() === "severe" && (
         <FlickeringHtmlEffect>
           <div
-            className="fixed top-0 w-fit h-14 flex flex-row z-20 animate-pulse aug-border-yellow-500"
+            className="aug-border-yellow-500 fixed top-0 z-20 flex h-14 w-fit animate-pulse flex-row"
             style={{
               top: "calc(-50vh + 90px)",
               left: "-150px",
@@ -41,10 +41,10 @@ export const WarningBlock = () => {
             }}
             data-augmented-ui="border bl-clip-x br-clip-x --aug-border-bg"
           >
-            <div className="relative w-fit h-full flex flex-row">
-              <div className="absolute z-30 w-full h-full flex justify-center items-center ">
+            <div className="relative flex h-full w-fit flex-row">
+              <div className="absolute z-30 flex size-full items-center justify-center ">
                 <div
-                  className="text-white text-center text-sm  orbitron bg-neutral-900 uppercase px-6 py-1 aug-border-yellow-500"
+                  className="orbitron aug-border-yellow-500 bg-neutral-900  px-6 py-1 text-center text-sm uppercase text-white"
                   data-augmented-ui="border bl-clip br-clip --aug-border-bg"
                 >
                   danger weather
@@ -72,10 +72,10 @@ const WarningLines = ({ direction }: { direction: string; width?: number }) => {
 
   return (
     <div
-      className={`w-[150px] h-full overflow-hidden bg-uilines ${scaleInvert}`}
+      className={`h-full w-[150px] overflow-hidden bg-uilines ${scaleInvert}`}
     >
       <div
-        className={`w-[300px] h-full flex flex-col justify-center items-center bg-repeat-x animate-linear`}
+        className={`flex h-full w-[300px] animate-linear flex-col items-center justify-center bg-repeat-x`}
         style={{
           background:
             "repeating-linear-gradient(-45deg, transparent, transparent 20px, black 20px, black 40px)",

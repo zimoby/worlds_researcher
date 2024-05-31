@@ -16,7 +16,7 @@ export const CostsPanel = () => {
       {Object.keys(costs).map((cost, index) => (
         <div
           key={index}
-          className={` ${playerPoints < costs[cost].value ? "text-uitext opacity-50 cursor-pointer" : "list-selecting"}  flex flex-row justify-between w-full pr-4`}
+          className={` ${playerPoints < costs[cost].value ? "cursor-pointer text-uitext opacity-50" : "list-selecting"}  flex w-full flex-row justify-between pr-4`}
           onClick={() => {
             if (cost === "extendBeaconLimits") {
               increaseBeconsLimit();

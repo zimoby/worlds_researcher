@@ -34,25 +34,25 @@ export const ModalWrapper = ({
 
   return (
     <div
-      className="fixed w-full h-full flex justify-center items-center z-50 bg-black/50"
+      className="fixed z-50 flex size-full items-center justify-center bg-black/50"
       style={{ display: showModal ? "flex" : "none" }}
     >
       <div
-        className="relative bg-black/80 w-96 h-fit flex flex-col border border-uilines aug-border-yellow-500"
+        className="aug-border-yellow-500 relative flex h-fit w-96 flex-col border border-uilines bg-black/80"
         style={{
           maxHeight: "calc(100% - 10rem)",
         }}
         data-augmented-ui="border tl-2-clip-x br-2-clip-x --aug-border-bg"
       >
-        <div className="flex justify-end items-center">
+        <div className="flex items-center justify-end">
           <div
-            className="flex justify-center items-center size-8 text-uitext cursor-pointer hover:bg-uilines hover:text-neutral-900"
+            className="flex size-8 cursor-pointer items-center justify-center text-uitext hover:bg-uilines hover:text-neutral-900"
             onClick={() => updateStoreProperty(modalName, false)}
           >
-            <div className="text-4xl rotate-45 text-center">+</div>
+            <div className="rotate-45 text-center text-4xl">+</div>
           </div>
         </div>
-        <div className="orbitron w-full h-8 flex justify-center bg-uilines items-center text-neutral-900 text-2xl">
+        <div className="orbitron flex h-8 w-full items-center justify-center bg-uilines text-2xl text-neutral-900">
           {title}
         </div>
         {children}

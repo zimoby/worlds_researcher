@@ -8,22 +8,22 @@ export const DroneMoveAngleUI = () => {
 
   return (
     <div
-      className="relative size-16 mx-1 my-5 rounded-full bg-neutral-900 border border-uilines"
+      className="relative mx-1 my-5 size-16 rounded-full border border-uilines bg-neutral-900"
       style={{ opacity }}
     >
-      <div className="absolute top-1/2 left-1/2 origin-left w-full border border-uilines opacity-20 bg-uilines -translate-x-1/2" />
-      <div className="absolute top-1/2 left-1/2 origin-top w-full border border-uilines opacity-20 bg-uilines -translate-x-1/2 rotate-90" />
+      <div className="absolute left-1/2 top-1/2 w-full origin-left -translate-x-1/2 border border-uilines bg-uilines opacity-20" />
+      <div className="absolute left-1/2 top-1/2 w-full origin-top -translate-x-1/2 rotate-90 border border-uilines bg-uilines opacity-20" />
       <div
-        className="absolute top-1/2 left-1/2 origin-left w-full border border-uilines bg-uilines"
+        className="absolute left-1/2 top-1/2 w-full origin-left border border-uilines bg-uilines"
         style={{
           transform: `rotate(${-droneMoveAngle}deg) translateX(-50%) scaleX(1)`,
         }}
       >
-        <div className="absolute top-1/2 left-1/2 origin-top w-full border border-uilines opacity-50 bg-uilines -translate-x-1/2 translate-y-2 scale-75" />
-        <div className="absolute top-1/2 left-1/2 origin-top w-full border border-uilines opacity-50 bg-uilines -translate-x-1/2 -translate-y-2 scale-75" />
+        <div className="absolute left-1/2 top-1/2 w-full origin-top -translate-x-1/2 translate-y-2 scale-75 border border-uilines bg-uilines opacity-50" />
+        <div className="absolute left-1/2 top-1/2 w-full origin-top -translate-x-1/2 -translate-y-2 scale-75 border border-uilines bg-uilines opacity-50" />
       </div>
-      <div className=" size-full rounded-full border border-uilines opacity-20 scale-125" />
-      <p className=" font-mono size-full text-xs mt-2 text-center text-uitext">
+      <div className=" size-full scale-125 rounded-full border border-uilines opacity-20" />
+      <p className=" mt-2 size-full text-center font-mono text-xs text-uitext">
         {-droneMoveAngle}°
       </p>
     </div>

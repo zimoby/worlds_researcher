@@ -51,27 +51,27 @@ const StartScreen = () => {
   ]);
 
   return (
-    <div className="h-full w-full bg-black">
+    <div className="size-full bg-black">
       <div
-        className={`h-full w-full flex flex-col justify-center items-center bg-neutral-900 ${
+        className={`flex size-full flex-col items-center justify-center bg-neutral-900 ${
           loadingProgress >= 100 ? "animate-fadeOut" : ""
         }`}
       >
-        <div className="w-20 -mb-1 h-auto">
-          <div className="w-full h-full flex justify-center items-center fill-white">
+        <div className="-mb-1 h-auto w-20">
+          <div className="flex size-full items-center justify-center fill-white">
             {corpLogoSvg}
           </div>
         </div>
         <div
-          className="orbitron text-7xl uppercase text-center text-yellow-400"
+          className="orbitron text-center text-7xl uppercase text-yellow-400"
           style={{ transform: "perspective(40px) rotateX(5deg)" }}
         >
           Worlds researcher
         </div>
-        <h1 className="orbitron text-xs mt-3 uppercase -skew-x-12">
+        <h1 className="orbitron mt-3 -skew-x-12 text-xs uppercase">
           Project for the Threejs.journey course
         </h1>
-        <p className="text-center w-3/5 orbitron text-2xs mt-3 uppercase -skew-x-12 scale-y-150 scale-x-75 leading-3">
+        <p className="orbitron mt-3 w-3/5 -skew-x-12 scale-x-75 scale-y-150 text-center text-2xs uppercase leading-3">
           {`Course by Bruno Simon ·
           Design by ${authorName} ·
           Story by ${authorName} ·
@@ -84,10 +84,10 @@ const StartScreen = () => {
         </p>
 
         {!startToLoadFiles && (
-          <div className="w-fit h-fit mt-16 flex flex-row items-center justify-center border border-neutral-100 hover:border-yellow-400 overflow-hidden bg-neutral-100 hover:bg-yellow-400 cursor-pointer">
-            <div className="w-36 h-full overflow-hidden">
+          <div className="mt-16 flex size-fit cursor-pointer flex-row items-center justify-center overflow-hidden border border-neutral-100 bg-neutral-100 hover:border-yellow-400 hover:bg-yellow-400">
+            <div className="h-full w-36 overflow-hidden">
               <div
-                className="w-72 h-full flex flex-col justify-center items-center bg-repeat-x animate-linear"
+                className="flex h-full w-72 animate-linear flex-col items-center justify-center bg-repeat-x"
                 style={{
                   background:
                     "repeating-linear-gradient(-45deg, transparent, transparent 10px, black 10px, black 20px)",
@@ -95,14 +95,14 @@ const StartScreen = () => {
               />
             </div>
             <button
-              className="orbitron w-36 m-2 uppercase text-center text-neutral-900"
+              className="orbitron m-2 w-36 text-center uppercase text-neutral-900"
               onClick={() => useGameStore.setState({ startToLoadFiles: true })}
             >
               Start Game
             </button>
-            <div className="w-36 h-full overflow-hidden">
+            <div className="h-full w-36 overflow-hidden">
               <div
-                className="w-72 h-full flex flex-col justify-center items-center bg-repeat-x animate-linear"
+                className="flex h-full w-72 animate-linear flex-col items-center justify-center bg-repeat-x"
                 style={{
                   background:
                     "repeating-linear-gradient(-45deg, transparent, transparent 10px, black 10px, black 20px)",
@@ -113,13 +113,13 @@ const StartScreen = () => {
         )}
 
         {startToLoadFiles && (
-          <div className="w-[300px] h-10 mt-16 bg-neutral-800 border">
+          <div className="mt-16 h-10 w-[300px] border bg-neutral-800">
             <div
               className="h-full overflow-hidden bg-neutral-200"
               style={{ width: `${loadingProgress * 3}px` }}
             >
               <div
-                className="h-full flex flex-col justify-center items-center bg-repeat-x animate-linear"
+                className="flex h-full animate-linear flex-col items-center justify-center bg-repeat-x"
                 style={{
                   width: `${loadingProgress * 6}px`,
                   background:
@@ -130,9 +130,9 @@ const StartScreen = () => {
           </div>
         )}
 
-        <div className="h-fit mt-16 flex flex-col justify-center items-center">
+        <div className="mt-16 flex h-fit flex-col items-center justify-center">
           <p>Settings</p>
-          <p className="w-3/5 text-xs text-center leading-3">
+          <p className="w-3/5 text-center text-xs leading-3">
             The game includes glitch effects that may cause discomfort or
             seizures for people with photosensitive epilepsy. If you find these
             effects uncomfortable you can disable them.

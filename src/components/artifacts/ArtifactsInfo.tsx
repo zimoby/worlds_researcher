@@ -16,7 +16,7 @@ export const ArtifactsInfo = () => {
       titleText={`Artifacts: ${artifacts.length} / ${artifactAmount}`}
       opacity={opacity}
     >
-      <div className="h-full w-full">
+      <div className="size-full">
         {artifacts.length === 0 && "No artifacts"}
         {artifacts.slice(0, 100).map((artifact, index) => (
           <div

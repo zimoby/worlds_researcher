@@ -3,7 +3,7 @@ import { ModalWrapper } from "./templateComponents";
 export const AboutModal = () => {
   return (
     <ModalWrapper title="About" modalName="showAboutModal">
-      <div className="w-full h-full flex flex-col p-7 pt-4 text-uitext leading-5 space-y-2">
+      <div className="flex size-full flex-col space-y-2 p-7 pt-4 leading-5 text-uitext">
         <div className="text-sm">
           <p>
             This game, created for the challenge &quot;Futuristic UI&quot; from

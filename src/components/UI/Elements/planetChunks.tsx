@@ -31,8 +31,8 @@ const MinimapCell: React.FC<MinimapCellProps> = React.memo(({ cellType }) => {
   }
 
   return (
-    <div className={`w-4 h-4 ${bgColor} `}>
-      <div className={`w-4 h-4 border border-uilines opacity-30`} />
+    <div className={`size-4 ${bgColor} `}>
+      <div className={`size-4 border border-uilines opacity-30`} />
     </div>
   );
 });
@@ -185,17 +185,17 @@ export const MiniMap = ({ size = 5, hideControls = false }) => {
       {!hideControls && (
         <>
           <div
-            className="absolute top-0 right-0 size-7 border-r-2 border-t-2 border-t-uilines border-r-uilines -m-3 hover:border-t-neutral-100 hover:border-r-neutral-100 hover:-m-5  cursor-pointer"
+            className="absolute right-0 top-0 -m-3 size-7 cursor-pointer border-r-2 border-t-2 border-r-uilines border-t-uilines hover:-m-5 hover:border-r-neutral-100  hover:border-t-neutral-100"
             onClick={() => setGridSize((prev) => prev + 2)}
           />
           <div
-            className="absolute left-0 bottom-0 size-7 border-r-2 border-t-2 border-t-uilines border-r-uilines -m-3 rotate-180 hover:border-t-neutral-100 hover:border-r-neutral-100 hover:-m-5  cursor-pointer"
+            className="absolute bottom-0 left-0 -m-3 size-7 rotate-180 cursor-pointer border-r-2 border-t-2 border-r-uilines border-t-uilines hover:-m-5 hover:border-r-neutral-100  hover:border-t-neutral-100"
             onClick={() => setGridSize((prev) => prev - 2)}
           />
         </>
       )}
       <div
-        className="size-full border border-uilines cursor-pointer"
+        className="size-full cursor-pointer border border-uilines"
         onClick={() => {
           if (!hideControls) {
             toggleModal("showMapModal");

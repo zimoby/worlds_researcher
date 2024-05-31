@@ -35,8 +35,8 @@ export const SystemControls = () => {
 
   return (
     <BasicPanelWrapper titleText="System Controls" opacity={opacity}>
-      <div className="w-full space-y-1 bg-black/20 px-1 mb-2 divide-y divide-uilines rounded-md">
-        <div className="w-full space-y-1 pt-1 pb-1">
+      <div className="mb-2 w-full space-y-1 divide-y divide-uilines rounded-md bg-black/20 px-1">
+        <div className="w-full space-y-1 py-1">
           <SliderWithInput
             label="Map Width"
             value={mapWidth}

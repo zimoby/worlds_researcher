@@ -7,10 +7,10 @@ export const CorpLogoPanel = () => {
   );
   return (
     <div
-      className="w-full h-24 border border-uilines text-xs  text-uitext"
+      className="h-24 w-full border border-uilines text-xs  text-uitext"
       style={{ opacity }}
     >
-      <div className="w-full h-full flex justify-center items-center fill-uilines">
+      <div className="flex size-full items-center justify-center fill-uilines">
         {corpLogoSvg}
       </div>
     </div>

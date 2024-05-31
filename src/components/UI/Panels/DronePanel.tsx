@@ -38,9 +38,9 @@ export const DronePanel = () => {
 
   return (
     <BasicPanelWrapper titleText="Drone:" styles="" opacity={opacity}>
-      <div className="w-full flex flex-col items-center">
+      <div className="flex w-full flex-col items-center">
         <button
-          className={`flex justify-center items-center orbitron px-2 py-1 border uppercase border-uilines mx-3 my-2 hover:opacity-70 text-sm ${autoPilot ? "bg-uilines text-neutral-900" : "text-uitext"}`}
+          className={`orbitron mx-3 my-2 flex items-center justify-center border border-uilines px-2 py-1 text-sm uppercase hover:opacity-70 ${autoPilot ? "bg-uilines text-neutral-900" : "text-uitext"}`}
           onClick={() => useGameStore.setState({ autoPilot: !autoPilot })}
         >
           Autopilot

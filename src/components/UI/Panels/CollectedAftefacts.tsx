@@ -17,11 +17,11 @@ export const CollectedAftefacts = () => {
       opacity={opacity}
       titleModalAction="showArtifactsModal"
     >
-      <div className=" flex flex-row justify-center items-center divide-x divide-uilines">
+      <div className=" flex flex-row items-center justify-center divide-x divide-uilines">
         {Object.keys(artifactsCollectedByTypes).map((key, index) => (
           <div
             key={index}
-            className="h-24 w-20 p-3 flex flex-col space-y-2 text-center justify-center items-center  hover:fill-neutral-900 "
+            className="flex h-24 w-20 flex-col items-center justify-center space-y-2 p-3 text-center  hover:fill-neutral-900 "
             onClick={() =>
               useGameStore.setState({
                 message: `Collected Artifacts: ${key}: ${artifactsCollectedByTypes[key]}`,
@@ -69,7 +69,7 @@ export const CollectedAftefacts = () => {
                 <path d="M0 51.5002L67.5 12.5291L67.5 90.4714L0 51.5002Z" />
               </svg>
             )}
-            <div className=" text-xs leading-3 uppercase">{key}</div>
+            <div className=" text-xs uppercase leading-3">{key}</div>
             <div className=" text-xs leading-3">
               {artifactsCollectedByTypes[key]}
             </div>

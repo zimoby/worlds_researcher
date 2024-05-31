@@ -34,20 +34,20 @@ export const ArtefactsModal = () => {
       title={`Artifacts (${displayArtifactData.length})`}
       modalName={`showArtifactsModal`}
     >
-      <div className="scrollbar w-full h-full flex flex-col p-7 pt-4 text-uitext leading-5 space-y-1">
+      <div className="scrollbar flex size-full flex-col space-y-1 p-7 pt-4 leading-5 text-uitext">
         {displayArtifactData.map((world, seed) => (
-          <div className="text-xs space-y-1 mb-3" key={seed}>
-            <div className="orbitron uppercase text-lg">{`World: ${visitedWorlds[seed].seed.value}`}</div>
+          <div className="mb-3 space-y-1 text-xs" key={seed}>
+            <div className="orbitron text-lg uppercase">{`World: ${visitedWorlds[seed].seed.value}`}</div>
             {world.map((artifact, index) => (
               <div
-                className="px-2 border border-uilines hover:bg-uilines hover:text-neutral-900"
+                className="border border-uilines px-2 hover:bg-uilines hover:text-neutral-900"
                 key={index}
               >
                 <div
-                  className={`checked:border-indigo-500 flex items-center justify-between uppercase text-base cursor-pointer select-none`}
+                  className={`flex cursor-pointer select-none items-center justify-between text-base uppercase checked:border-indigo-500`}
                   onClick={() => toggleArtifact(index)}
                 >
-                  <div className=" leading-5 py-1">{artifact.name}</div>
+                  <div className=" py-1 leading-5">{artifact.name}</div>
                   <div>{artifact.type}</div>
                 </div>
                 {expandedArtifacts.includes(index) && (

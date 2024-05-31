@@ -29,7 +29,7 @@ const TypingText: React.FC<TypingTextProps> = ({ text, speed = 100 }) => {
     };
   }, [text, speed]);
 
-  return <p className="w-fit h-fit">{displayText}</p>;
+  return <p className="size-fit">{displayText}</p>;
 };
 
 export default TypingText;

@@ -25,7 +25,7 @@ const ParamComponent: React.FC<ParamProps> = ({ name, value, min, max }) => {
 
   return (
     <div
-      className="flex w-full list-selecting justify-between"
+      className="list-selecting flex w-full justify-between"
       onClick={() =>
         useGameStore.setState({ message: `Planet: ${name}: ${value}` })
       }
@@ -34,7 +34,7 @@ const ParamComponent: React.FC<ParamProps> = ({ name, value, min, max }) => {
         {name}: {value}
       </div>
       {isDanger && (
-        <div className="text-2xs uppercase border border-uilines px-1">
+        <div className="border border-uilines px-1 text-2xs uppercase">
           danger
         </div>
       )}
@@ -113,7 +113,7 @@ export const PlanetDataPanel = () => {
         <p className="list-selecting">Weather: {weatherCondition}</p>
         <div className="list-selecting flex flex-row justify-start">
           <p className="">Ground:</p>
-          <div className=" flex flex-row ml-2 space-x-1 justify-center items-center">
+          <div className=" ml-2 flex flex-row items-center justify-center space-x-1">
             {parseColors.map((color, index) => {
               return (
                 <div
@@ -131,7 +131,7 @@ export const PlanetDataPanel = () => {
         </div>
         <div className="list-selecting flex flex-row justify-start">
           <p className="">Resources:</p>
-          <div className=" flex flex-row ml-2 space-x-1 justify-center items-center">
+          <div className=" ml-2 flex flex-row items-center justify-center space-x-1">
             {parsedResourcesColors.map((color, index) => {
               return (
                 <div

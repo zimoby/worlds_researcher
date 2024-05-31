@@ -4,7 +4,7 @@ import { ModalWrapper } from "./templateComponents";
 export const MapModal = () => {
   return (
     <ModalWrapper title="Map" modalName="showMapModal">
-      <div className="w-full h-full flex justify-center items-center">
+      <div className="flex size-full items-center justify-center">
         <MiniMap size={21} hideControls={true} />
       </div>
     </ModalWrapper>

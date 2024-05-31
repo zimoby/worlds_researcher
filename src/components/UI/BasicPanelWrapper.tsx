@@ -31,17 +31,17 @@ export const BasicPanelWrapper = ({
 
   return (
     <div
-      className={`${styles} ${height} ${width} overflow-hidden relative text-left text-xs bg-neutral-900/50 p-0 aug-border-yellow-500`}
+      className={`${styles} ${height} ${width} aug-border-yellow-500 relative overflow-hidden bg-neutral-900/50 p-0 text-left text-xs`}
       style={{ opacity: opacity }}
       data-augmented-ui={`${augUi}`}
     >
       <button
-        className={`orbitron w-full h-fit flex justify-start items-center px-1 bg-uilines text-neutral-900 select-none ${titleModalAction === undefined ? "cursor-default" : "cursor-pointer hover:bg-neutral-900 hover:text-uitext"}`}
+        className={`orbitron flex h-fit w-full select-none items-center justify-start bg-uilines px-1 text-neutral-900 ${titleModalAction === undefined ? "cursor-default" : "cursor-pointer hover:bg-neutral-900 hover:text-uitext"}`}
         onClick={titleAction}
       >
         {titleText}
       </button>
-      <div className="scrollbar w-full h-full p-1 text-uitext">{children}</div>
+      <div className="scrollbar size-full p-1 text-uitext">{children}</div>
     </div>
   );
 };
