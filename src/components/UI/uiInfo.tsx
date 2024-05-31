@@ -29,7 +29,9 @@ import { useEffect } from "react";
 import { ArtefactsModal } from "./Modals/ArtifactsModal";
 import { MapModal } from "./Modals/MapModal";
 import { DronePanel } from "./Panels/DronePanel";
-import { AboutButton } from "./Elements/AbountButton";
+import { AboutButton } from "./Elements/AboutButton";
+import { LogOfChanges } from "./Elements/LogOfChangesButton";
+import ChangeLogModal from "./Modals/ChangeLogModal";
 
 export const UiInfo = () => {
   const animationFirstStage = useGameStore(
@@ -74,6 +76,7 @@ export const UiInfo = () => {
       }}
     >
       <MapModal />
+      <ChangeLogModal />
       <ArtefactsModal />
       <SettingsModal />
       <AboutModal />
@@ -99,6 +102,7 @@ export const UiInfo = () => {
           <AboutButton />
           <SettingsButton />
           <FlyToNewWorld />
+          <LogOfChanges />
           <SystemControls />
           <CostsPanel />
           <EmptyGrowPanel />
