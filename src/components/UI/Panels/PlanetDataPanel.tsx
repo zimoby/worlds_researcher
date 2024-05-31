@@ -61,8 +61,6 @@ export const PlanetDataPanel = () => {
       };
     });
 
-    colors.pop();
-
     return colors;
   }, [terrainColors]);
 
