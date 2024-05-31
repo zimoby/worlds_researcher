@@ -1,42 +1,12 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
-import { Camera, Mesh, Raycaster, Vector2 } from "three";
+import { Camera, Mesh, Raycaster } from "three";
 import { useGameStore } from "../store/store";
 import { ResourceType } from "../store/worldParamsSlice";
 import { debounce, throttle } from "lodash";
 import { useProcessBeacons } from "../components/beacons/beaconUtils";
 import { getChunkCoordinates } from "../utils/functions";
 import { useProcessArtifacts } from "../components/artifacts/artifactUtils";
-
-const getIntersection = (
-  event: { clientX: number; clientY: number },
-  raycaster: Raycaster,
-  mesh: Mesh | null,
-  camera: Camera,
-) => {
-  const mouse = new Vector2();
-  if (!event) return [];
-  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
-
-  raycaster.setFromCamera(mouse, camera);
-  if (mesh) {
-    const intersects = raycaster.intersectObject(mesh);
-    return intersects;
-  } else {
-    return [];
-  }
-};
-
-const keyToVector: Record<string, { x: number; y: number }> = {
-  ArrowUp: { x: 0, y: -1 },
-  KeyW: { x: 0, y: -1 },
-  ArrowDown: { x: 0, y: 1 },
-  KeyS: { x: 0, y: 1 },
-  ArrowLeft: { x: -1, y: 0 },
-  KeyA: { x: -1, y: 0 },
-  ArrowRight: { x: 1, y: 0 },
-  KeyD: { x: 1, y: 0 },
-};
+import { keyToVector, getIntersection } from "../utils/mapUtils";
 
 export const useKeyboardControls = ({
   meshRef,
@@ -49,7 +19,7 @@ export const useKeyboardControls = ({
 }): void => {
   const canPlaceBeacon = useGameStore((state) => state.canPlaceBeacon);
   const mouseEventRef = useRef<MouseEvent | null>(null);
-  const [activeKeys, setActiveKeys] = useState({});
+  const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
   const moveDirection = useGameStore((state) => state.moveDirection);
   const playerPoints = useGameStore((state) => state.playerPoints);
   const updateMapParam = useGameStore((state) => state.updateMapParam);
@@ -87,18 +57,15 @@ export const useKeyboardControls = ({
         }
       }
 
-      if (
-        (event.code === "ShiftLeft" || event.code === "ShiftRight") &&
-        playerPoints > 0
-      ) {
-        useGameStore.setState({ dynamicSpeed: 3 });
-      } else if (
-        (event.code === "ShiftLeft" || event.code === "ShiftRight") &&
-        playerPoints <= 0
-      ) {
-        useGameStore.setState({ dynamicSpeed: 1 });
-      } else if (event.code === "AltLeft" || event.code === "AltRight") {
-        updateMapParam("speed", 0);
+      switch (event.code) {
+        case "ShiftLeft":
+        case "ShiftRight":
+          useGameStore.setState({ dynamicSpeed: playerPoints > 0 ? 3 : 1 });
+          break;
+        case "AltLeft":
+        case "AltRight":
+          updateMapParam("speed", 0);
+          break;
       }
     },
     [
