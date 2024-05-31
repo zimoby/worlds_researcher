@@ -1,6 +1,6 @@
 # World Researcher
 
-Is a futher development of the original project Holographic Resource Scanner for the Bruno Simon [ThreeJS Journey](https://threejs-journey.com/) course challange.
+Is a further development of the original project Holographic Resource Scanner for the Bruno Simon [ThreeJS Journey](https://threejs-journey.com/) course challange.
 Github: [Holographic Resource Scanner](https://github.com/zimoby/resource_gathering_v1)
 Live: [Holographic Resource Scanner](https://resource-gathering-v1.vercel.app/)
 
