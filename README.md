@@ -1,14 +1,16 @@
-# Holographic Resource Scanner
+# World Researcher
 
-Project for [ThreeJS Journey](https://threejs-journey.com/) course challenge "Futuristic UI" by Bruno Simon. This game focuses on gathering resources on unknown planets using a holographic scanner.
-
+Is a futher development of the original project Holographic Resource Scanner for the Bruno Simon [ThreeJS Journey](https://threejs-journey.com/) course challange.
+Github: [Holographic Resource Scanner](https://github.com/zimoby/resource_gathering_v1)
 Live: [Holographic Resource Scanner](https://resource-gathering-v1.vercel.app/)
+
+Live: [World Researcher](https://worlds-researcher.vercel.app)
 
 ## About the Project
 
 The game is a work in progress and open source. The main goal is to provide an immersive experience of resource gathering with a minimalist, futuristic UI. The game mechanics involve using a scanner to locate and extract resources hidden underground, which are essential for collecting energy and fly to a new planets.
 
-## Follow the Author
+## Follow me on social media
 
 - [Notion](https://zimoby.notion.site/)
 - [Instagram](https://www.instagram.com/zimoby/)
