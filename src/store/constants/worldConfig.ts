@@ -14,7 +14,7 @@ import { DEV_MODE } from "./appConstants";
 
 export const START_DELAY = 1000;
 export const RESOURCE_UPDATE_INTERVAL = 1000;
-export const WEATHER_UPDATE_INTERVAL = 5000;
+export const WORLD_UPDATE_INTERVAL = 5000;
 
 // WORLD
 
@@ -72,11 +72,13 @@ export const TERRAIN_COLORS = {
   default: { level: 0, color: new Color(0xffffff) },
 };
 
+const DEV_RESOURCES_AMOUNT = 1000000;
+
 export const INITIAL_RESOURCES = {
-  Water: DEV_MODE ? 900 : 0,
-  Metals: DEV_MODE ? 900 : 0,
-  "Rare Elements": DEV_MODE ? 900 : 0,
-  Hydrocarbons: DEV_MODE ? 900 : 0,
+  Water: DEV_MODE ? DEV_RESOURCES_AMOUNT : 0,
+  Metals: DEV_MODE ? DEV_RESOURCES_AMOUNT : 0,
+  "Rare Elements": DEV_MODE ? DEV_RESOURCES_AMOUNT : 0,
+  Hydrocarbons: DEV_MODE ? DEV_RESOURCES_AMOUNT : 0,
 };
 
 export const classicTerrainPalette = {

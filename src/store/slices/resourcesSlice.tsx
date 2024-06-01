@@ -41,7 +41,7 @@ export const createResourcesSlice: StateCreator<
       collectedResources,
       energy,
       canPlaceBeacon,
-      addEventLog,
+      addLog,
       dynamicSpeed,
       animationFirstStage,
       mapAnimationState,
@@ -73,7 +73,7 @@ export const createResourcesSlice: StateCreator<
     if (combinedSpeed > 1) {
       newPlayerPoints -=
         dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value;
-      addEventLog(
+      addLog(
         `High Speed. -${dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value} energy`,
       );
     }
@@ -87,13 +87,13 @@ export const createResourcesSlice: StateCreator<
         mapParams.width - CHUNK_SIZE + (mapParams.depth - CHUNK_SIZE);
       const extraCosts = Math.round(extraMapSize * COSTS.increaseMapSize.value);
       newPlayerPoints -= extraCosts;
-      addEventLog(`Extra Map Scan. -${extraCosts} energy`);
+      addLog(`Extra Map Scan. -${extraCosts} energy`);
     }
 
     if (canPlaceBeacon) {
       if (newPlayerPoints >= COSTS.scanning.value) {
         newPlayerPoints -= COSTS.scanning.value;
-        addEventLog(`Scanning. -${COSTS.scanning.value} energy`);
+        addLog(`Scanning. -${COSTS.scanning.value} energy`);
       }
     }
 

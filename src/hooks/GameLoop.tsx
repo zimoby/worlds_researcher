@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useGameStore } from "../store/store";
 import { useProcessBeacons } from "../components/beacons/beaconUtils";
-import { WEATHER_UPDATE_INTERVAL } from "../store/constants/worldConfig";
+import { WORLD_UPDATE_INTERVAL } from "../store/constants/worldConfig";
 
 export const useGameLoop = () => {
   const { destroyBeacons } = useProcessBeacons();
@@ -18,7 +18,7 @@ export const useGameLoop = () => {
 
       addEventLog(receiveNewWeather);
       destroyBeacons();
-    }, WEATHER_UPDATE_INTERVAL);
+    }, WORLD_UPDATE_INTERVAL);
 
     return () => clearInterval(intervalId);
   }, [addEventLog, destroyBeacons, updateWeather]);
