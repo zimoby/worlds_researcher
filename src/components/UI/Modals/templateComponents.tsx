@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useGameStore } from "../../../store/store";
-import { ModalName } from "../../../store/gameStateSlice";
+import { ModalName } from "../../../store/types";
 
 interface ModalWrapperProps {
   children: React.ReactNode;

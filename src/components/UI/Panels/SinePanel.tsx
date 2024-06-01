@@ -1,9 +1,7 @@
 import { useMemo } from "react";
 import { useGameStore } from "../../../store/store";
-import {
-  parseResourcesColors,
-  resourceNames,
-} from "../../../store/worldParamsSlice";
+import { parseResourcesColors } from "../../../utils/functions";
+import { resourceNames } from "../../../store/worldConfig";
 
 export const SinePanel = () => {
   const collectedResources = useGameStore((state) => state.collectedResources);

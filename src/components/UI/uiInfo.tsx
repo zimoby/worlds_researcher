@@ -31,6 +31,7 @@ import { DronePanel } from "./Panels/DronePanel";
 import { AboutButton } from "./Elements/AboutButton";
 import { LogOfChanges } from "./Elements/LogOfChangesButton";
 import ChangeLogModal from "./Modals/ChangeLogModal";
+import { START_DELAY } from "../../store/worldConfig";
 
 export const UiInfo = () => {
   const animationFirstStage = useGameStore(
@@ -54,7 +55,7 @@ export const UiInfo = () => {
     if (!startStageFinished && animationFirstStage) {
       const interval = setInterval(() => {
         useGameStore.setState({ startStageFinished: true });
-      }, 1000);
+      }, START_DELAY);
 
       return () => {
         clearInterval(interval);

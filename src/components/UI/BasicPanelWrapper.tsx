@@ -1,5 +1,7 @@
-import { ModalName } from "../../store/gameStateSlice";
+
+
 import { useGameStore } from "../../store/store";
+import { ModalName } from "../../store/types";
 
 export const BasicPanelWrapper = ({
   children,

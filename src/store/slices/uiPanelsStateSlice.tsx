@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
-import { GameStoreState } from "./store";
-import { colors, setColors } from "../assets/colors";
+import { GameStoreState } from "../store";
+import { colors, setColors } from "../../assets/colors";
 
 interface UiPanelsStateType {
   opacity: number;

@@ -1,5 +1,5 @@
 import { useListAppearing } from "../../effects/ListAppearing";
-import { ChunkType } from "../../store/gameStateSlice";
+import { ChunkType } from "../../store/slices";
 import { useGameStore } from "../../store/store";
 import { convertChunkCoordinateToName } from "../../utils/functions";
 import { BasicPanelWrapper } from "../UI/BasicPanelWrapper";

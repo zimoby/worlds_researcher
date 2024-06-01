@@ -1,6 +1,7 @@
 import { useCallback } from "react";
 import { educationalStepsPhrases } from "../../drone/educationalStepsPhrases";
-import { SETTING_EDUCATION_MODE, useGameStore } from "../../../store/store";
+import { useGameStore } from "../../../store/store";
+import { SETTING_EDUCATION_MODE } from "../../../store/constants/appConstants";
 
 export const EducationSteps = () => {
   const educationMode = useGameStore((state) => state.educationMode);

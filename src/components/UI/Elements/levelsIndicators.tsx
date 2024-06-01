@@ -12,7 +12,8 @@ export const LevelsIndicators = () => {
     0,
     Math.min(
       100,
-      (activePosition.y - 1 - GROUND_MIN_LEVEL) * (100 / (GROUND_MAX_LEVEL - GROUND_MIN_LEVEL)),
+      (activePosition.y - 1 - GROUND_MIN_LEVEL) *
+        (100 / (GROUND_MAX_LEVEL - GROUND_MIN_LEVEL)),
     ),
   );
 

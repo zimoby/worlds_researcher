@@ -1,6 +1,8 @@
 import { MutableRefObject, useEffect } from "react";
-import { useGameStore, DEV_MODE } from "../store/store";
-import { ChunkType } from "../store/gameStateSlice";
+import { useGameStore } from "../store/store";
+import { DEV_MODE } from "../store/constants/appConstants";
+import { resourceTypes } from "../store/worldConfig";
+import { ChunkType } from "../store/slices";
 
 export const generateUniqueId = () => `${Date.now()}-${Math.random()}`;
 
@@ -160,4 +162,17 @@ export const numberSimplified = (number: number) => {
   if (number < 1000000) return `${(number / 1000).toFixed(1)}k`;
   if (number < 1000000000) return `${(number / 1000000).toFixed(1)}M`;
   return `${(number / 1000000000).toFixed(1)}B`;
+};
+export const parseResourcesColors = (): { color: number[] }[] => {
+  const resColors = Object.keys(resourceTypes).map((key) => {
+    return {
+      color: [
+        resourceTypes[key].color.r,
+        resourceTypes[key].color.g,
+        resourceTypes[key].color.b,
+      ],
+    };
+  });
+
+  return resColors;
 };

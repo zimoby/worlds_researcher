@@ -1,6 +1,7 @@
 import { useCallback } from "react";
-import { GET_ARTIFACT_RADIUS, useGameStore } from "../../store/store";
-import { ArtifactT } from "../../store/worldParamsSlice";
+import { useGameStore } from "../../store/store";
+import { GET_ARTIFACT_RADIUS } from "../../store/worldConfig";
+import { ArtifactT } from "../../store/types";
 
 const getArtifactInRadius = (
   visibleArtifacts: ArtifactT[],

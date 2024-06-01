@@ -1,5 +1,7 @@
-import { movementDirections } from "../../../store/gameStateSlice";
+
+
 import { useGameStore } from "../../../store/store";
+import { movementDirections } from "../../../store/worldConfig";
 
 export const DirectionIndicators = () => {
   const moveDirection = useGameStore((state) => state.moveDirection);

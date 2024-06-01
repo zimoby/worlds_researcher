@@ -1,24 +1,23 @@
 import { StateCreator } from "zustand";
+import { GameStoreState } from "../store";
+import { DEV_MODE } from "../constants/appConstants";
 import {
-  DEV_MODE,
-  GameStoreState,
   SETTING_DISABLE_ANIMATIONS,
   SETTING_DISABLE_MUSIC,
   SETTING_DISABLE_SOUNDS,
   SETTING_EDUCATION_MODE,
   SETTING_INVERT_DIRECTION,
   SETTING_START_SCREEN,
-} from "./store";
-import {
-  ResourceName,
-  ResourceType,
-  resourceNames,
-  resourceTypes,
-} from "./worldParamsSlice";
-import { generateWeather } from "../utils/generators";
-import { WeatherCondition } from "./worldParamsSlice";
+} from "../constants/appConstants";
+import { resourceNames } from "../worldConfig";
+import { resourceTypes } from "../worldConfig";
+import { ResourceName } from "../types";
+import { ResourceType } from "../types";
+import { WeatherCondition } from "../types";
 import { generateUUID } from "three/src/math/MathUtils.js";
-import { resourceCollectionMultipliers } from "./upgradeStateSlice";
+import { resourceCollectionMultipliers } from "../slices/upgradeStateSlice";
+import { generateWeather } from "../../utils/generators";
+import { ModalName } from "../types";
 
 export interface Offset {
   x: number;
@@ -105,20 +104,6 @@ export interface GameStateSlice {
   addLog: (log: string) => void;
   addEventLog: (eventName: string) => void;
 }
-
-export type ModalName =
-  | "showSettingsModal"
-  | "showAboutModal"
-  | "showArtifactsModal"
-  | "showMapModal"
-  | "showChangeLogModal";
-
-export const movementDirections = [
-  { x: -1, y: 0, label: "a" },
-  { x: 0, y: -1, label: "w" },
-  { x: 0, y: 1, label: "s" },
-  { x: 1, y: 0, label: "d" },
-];
 
 export const createGameStateSlice: StateCreator<
   GameStoreState,

@@ -1,7 +1,7 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from "react";
 import { Camera, Mesh, Raycaster } from "three";
 import { useGameStore } from "../store/store";
-import { ResourceType } from "../store/worldParamsSlice";
+import { ResourceType } from "../store/types";
 import { debounce, throttle } from "lodash";
 import { useProcessBeacons } from "../components/beacons/beaconUtils";
 import { getChunkCoordinates } from "../utils/functions";

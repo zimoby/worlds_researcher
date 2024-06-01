@@ -54,8 +54,7 @@ export const ArtefactsModal = () => {
                   <>
                     {Object.keys(artifact.params).map((key, index) => (
                       <div className="text-xs" key={index}>
-                        {artifact.params[key].name}:{" "}
-                        {artifact.params[key].value}
+                        {`${artifact.params[key].name}: ${artifact.params[key].value} ${artifact.params[key].unit}`}
                       </div>
                     ))}
                   </>

@@ -3,7 +3,7 @@ import { useGameStore } from "../../store/store";
 import { DoubleSide, Euler, Vector3 } from "three";
 import React, { useMemo } from "react";
 import { FlickeringEffect } from "../../effects/FlickeringEffectWrapper";
-import { ArtifactT } from "../../store/worldParamsSlice";
+import { ArtifactT } from "../../store/types";
 import { RingPlaneShader } from "../gfx/RingShader";
 
 const maxDistance = 3;

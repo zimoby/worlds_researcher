@@ -1,6 +1,6 @@
 import { StateCreator } from "zustand";
-import { GameStoreState } from "./store";
-import { ResourceName } from "./worldParamsSlice";
+import { GameStoreState } from "../store";
+import { ResourceName } from "../types";
 
 export interface UpgradeSlice {
   resourceCollectionLevel: number;

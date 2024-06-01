@@ -21,7 +21,7 @@ import {
   useUpdateMapMoving,
 } from "../../utils/functions";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
-import { ResourceType } from "../../store/worldParamsSlice";
+import { ResourceType } from "../../store/types";
 
 const generateIndices = (
   widthCount: number,

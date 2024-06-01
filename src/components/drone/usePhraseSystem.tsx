@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { PhrasesCollection } from "./PhrasesCollection";
-import { SETTING_EDUCATION_MODE, useGameStore } from "../../store/store";
+import { useGameStore } from "../../store/store";
+import { SETTING_EDUCATION_MODE } from "../../store/constants/appConstants";
 import { educationalStepsPhrases } from "./educationalStepsPhrases";
 import { colors } from "../../assets/colors";
 

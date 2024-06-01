@@ -1,11 +1,11 @@
 import { useMemo } from "react";
 import { useGameStore } from "../../../store/store";
+import { resourceTypes } from "../../../store/worldConfig";
 import {
   WorldNumberParamT,
   WorldParamsType,
   WorldStringParamT,
-  resourceTypes,
-} from "../../../store/worldParamsSlice";
+} from "../../../store/types";
 import { BasicPanelWrapper } from "../BasicPanelWrapper";
 
 interface ParamProps {

@@ -1,3 +1,4 @@
+import { useGameStore } from "../../../store/store";
 import {
   SETTING_DISABLE_ANIMATIONS,
   SETTING_DISABLE_MUSIC,
@@ -5,8 +6,7 @@ import {
   SETTING_EDUCATION_MODE,
   SETTING_INVERT_DIRECTION,
   SETTING_START_SCREEN,
-  useGameStore,
-} from "../../../store/store";
+} from "../../../store/constants/appConstants";
 import { ModalWrapper } from "./templateComponents";
 
 const ToggleButton = ({

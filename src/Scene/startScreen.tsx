@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { corpLogoSvg } from "../assets/CorpLogo";
+import { useGameStore } from "../store/store";
 import {
   SETTING_DISABLE_ANIMATIONS,
   SETTING_DISABLE_SOUNDS,
   SETTING_START_SCREEN,
-  useGameStore,
-} from "../store/store";
+} from "../store/constants/appConstants";
 import { ToggleButton } from "../components/UI/Elements/ToggleButton";
 import { useSoundSystem } from "../hooks/soundSystem";
 import { useCheckVariableRender } from "../utils/functions";

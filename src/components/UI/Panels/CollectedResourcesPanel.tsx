@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import { useGameStore } from "../../../store/store";
 import { numberSimplified } from "../../../utils/functions";
 import { BasicPanelWrapper } from "../BasicPanelWrapper";
-import { parseResourcesColors } from "../../../store/worldParamsSlice";
+import { parseResourcesColors } from "../../../utils/functions";
 
 export const CollectedResourcesPanel = () => {
   const opacity = useGameStore(

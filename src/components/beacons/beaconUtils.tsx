@@ -1,10 +1,9 @@
 import { useCallback } from "react";
-import { BEACONS_RANGE, useGameStore } from "../../store/store";
-import {
-  BeaconType,
-  ResourceType,
-} from "../../store/worldParamsSlice";
-import { armorDestructionModifiers } from "../../store/upgradeStateSlice";
+import { useGameStore } from "../../store/store";
+import { BEACONS_RANGE } from "../../store/worldConfig";
+import { BeaconType } from "../../store/types";
+import { ResourceType } from "../../store/types";
+import { armorDestructionModifiers } from "../../store/slices/upgradeStateSlice";
 import { WEATHER_PROBABILITIES } from "../../store/worldConfig";
 
 export const useProcessBeacons = () => {
