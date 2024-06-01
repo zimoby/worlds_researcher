@@ -1,4 +1,4 @@
-import { useGameStore } from "../../store/store";
+import { BEACONS_RANGE, useGameStore } from "../../store/store";
 import { Cylinder, Sphere } from "@react-three/drei";
 import { ConcentricCirclesAnimation } from "../gfx/concentricCircles";
 import { useFrame } from "@react-three/fiber";
@@ -8,13 +8,12 @@ import { BufferGeometry, Group, Shape } from "three";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
 
 const beaconHeight = 10;
-const minDistance = 20;
 
 const ShapeCircle = React.memo(function ShapeCircle() {
   const shapePoints = useMemo(() => {
     const shape = new Shape();
     shape.moveTo(0, 0);
-    shape.absarc(0, 0, minDistance, 0, Math.PI * 2, false);
+    shape.absarc(0, 0, BEACONS_RANGE, 0, Math.PI * 2, false);
     const points = shape.getPoints(50);
     return new BufferGeometry().setFromPoints(points);
   }, []);

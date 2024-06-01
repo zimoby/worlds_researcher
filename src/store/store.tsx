@@ -6,6 +6,7 @@ import {
 } from "./uiPanelsStateSlice";
 import { MapParamsSlice, createMapParamsSlice } from "./mapParamsSlice";
 import { GameStateSlice, createGameStateSlice } from "./gameStateSlice";
+import { createUpgradeSlice, UpgradeSlice } from "./upgradeStateSlice";
 
 export const DEV_MODE = import.meta.env.VITE_APP_MODE === "development";
 
@@ -16,14 +17,19 @@ export const SETTING_DISABLE_MUSIC = "disableMusic";
 export const SETTING_INVERT_DIRECTION = "invertDirection";
 export const SETTING_START_SCREEN = "startScreen";
 
-export type GameStoreState = WorldParamsSlice &
+export const BEACONS_RANGE = 20;
+
+export type GameStoreState =
+  WorldParamsSlice &
   UiPanelsStateSlice &
   MapParamsSlice &
-  GameStateSlice;
+  GameStateSlice &
+  UpgradeSlice;
 
 export const useGameStore = create<GameStoreState>((...a) => ({
   ...createWorldParamsSlice(...a),
   ...createUiPanelsStateSlice(...a),
   ...createMapParamsSlice(...a),
   ...createGameStateSlice(...a),
+  ...createUpgradeSlice(...a),
 }));

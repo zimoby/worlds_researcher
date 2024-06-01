@@ -1,8 +1,6 @@
 import { useCallback } from "react";
-import { useGameStore } from "../../store/store";
+import { BEACONS_RANGE, useGameStore } from "../../store/store";
 import { BeaconType, ResourceType } from "../../store/worldParamsSlice";
-
-const minDistance = 20;
 
 export const useProcessBeacons = () => {
   const addLog = useGameStore((state) => state.addLog);
@@ -35,7 +33,7 @@ export const useProcessBeacons = () => {
           const dx = position.x - beacon.x;
           const dz = position.z - beacon.z;
           const distance = Math.sqrt(dx * dx + dz * dz);
-          return distance < minDistance;
+          return distance < BEACONS_RANGE;
         },
       );
 
