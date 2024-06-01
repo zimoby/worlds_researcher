@@ -18,9 +18,9 @@ export const SETTING_INVERT_DIRECTION = "invertDirection";
 export const SETTING_START_SCREEN = "startScreen";
 
 export const BEACONS_RANGE = 20;
+export const GET_ARTIFACT_RADIUS = 20;
 
-export type GameStoreState =
-  WorldParamsSlice &
+export type GameStoreState = WorldParamsSlice &
   UiPanelsStateSlice &
   MapParamsSlice &
   GameStateSlice &

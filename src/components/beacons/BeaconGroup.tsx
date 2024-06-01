@@ -6,6 +6,7 @@ import { isOutOfBound, useCalculateDeltas } from "../../utils/functions";
 import React, { createRef, useMemo } from "react";
 import { BufferGeometry, Group, Shape } from "three";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
+import { beaconsArmorColors } from "../../store/upgradeStateSlice";
 
 const beaconHeight = 10;
 
@@ -73,27 +74,50 @@ export const BeaconGroup = () => {
 
   return (
     <group visible={firstStart}>
-      {beacons.map((beacon, index) => (
-        <group
-          key={beacon.id}
-          position={[beacon.x, beacon.y + 1, beacon.z]}
-          ref={beaconRefs[index]}
-        >
-          <Sphere args={[1, 8, 8]} position={[0, beaconHeight, 0]} />
-          <Cylinder
-            args={[0.1, 0.1, beaconHeight, 4]}
-            position={[0, beaconHeight / 2, 0]}
-          />
+      {beacons.map((beacon, index) => {
+        const armorLevel = beacon.armor;
+        const armorColor = beaconsArmorColors[armorLevel];
+        // const armorSize = 1 + armorLevel * 0.5;
+
+        const collectingLevel = beacon.collectionLevel + 1;
+
+        return (
           <group
-            key={"circle_of_" + beacon.id}
-            ref={circleRefs[index]}
-            visible={canPlaceBeacon}
+            key={beacon.id}
+            position={[beacon.x, beacon.y + 1, beacon.z]}
+            ref={beaconRefs[index]}
           >
-            <ShapeCircle />
+            <Sphere
+              args={[1 * collectingLevel, 16, 16]}
+              position={[0, beaconHeight * collectingLevel, 0]}
+            />
+            <Sphere
+              args={[collectingLevel * 8, 8, 8]}
+              position={[0, beaconHeight / 2 - (collectingLevel - 1) * -5, 0]}
+              visible={armorLevel > 0}
+            >
+              <meshStandardMaterial wireframe color={armorColor} />
+            </Sphere>
+            <Cylinder
+              args={[
+                0.1,
+                0.1 + (collectingLevel - 1) * 2,
+                beaconHeight * collectingLevel,
+                8,
+              ]}
+              position={[0, (beaconHeight / 2) * collectingLevel, 0]}
+            />
+            <group
+              key={"circle_of_" + beacon.id}
+              ref={circleRefs[index]}
+              visible={canPlaceBeacon}
+            >
+              <ShapeCircle />
+            </group>
+            <ConcentricCirclesAnimation size={5 * (collectingLevel / 1.3)} />
           </group>
-          <ConcentricCirclesAnimation />
-        </group>
-      ))}
+        );
+      })}
     </group>
   );
 };

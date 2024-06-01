@@ -21,7 +21,7 @@ export const useKeyboardControls = ({
   const mouseEventRef = useRef<MouseEvent | null>(null);
   const [activeKeys, setActiveKeys] = useState<Record<string, boolean>>({});
   const moveDirection = useGameStore((state) => state.moveDirection);
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
   const updateMapParam = useGameStore((state) => state.updateMapParam);
   const autoPilot = useGameStore((state) => state.autoPilot);
 
@@ -60,7 +60,7 @@ export const useKeyboardControls = ({
       switch (event.code) {
         case "ShiftLeft":
         case "ShiftRight":
-          useGameStore.setState({ dynamicSpeed: playerPoints > 0 ? 3 : 1 });
+          useGameStore.setState({ dynamicSpeed: energy > 0 ? 3 : 1 });
           break;
         case "AltLeft":
         case "AltRight":
@@ -73,7 +73,7 @@ export const useKeyboardControls = ({
       camera,
       canPlaceBeacon,
       meshRef,
-      playerPoints,
+      energy,
       raycaster,
       updateMapParam,
     ],
@@ -150,7 +150,7 @@ export const useCanvasHover = ({
   const { takeArtifact, checkArtifactInRadius } = useProcessArtifacts();
   const addNewMessage = useGameStore((state) => state.addNewMessage);
   const costs = useGameStore((state) => state.costs);
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
 
   const throttledSetState = useRef(
     throttle((state) => {
@@ -162,7 +162,7 @@ export const useCanvasHover = ({
   const handleCanvasHover = useCallback(
     (event: { clientX: number; clientY: number; type: string }) => {
       if (!canPlaceBeacon || !meshRef.current) {
-        if (playerPoints < costs.scanning.value) {
+        if (energy < costs.scanning.value) {
           addNewMessage("Not enough energy to scan");
         }
         return;
@@ -240,7 +240,7 @@ export const useCanvasHover = ({
       depth,
       throttledSetState,
       checkArtifactInRadius,
-      playerPoints,
+      energy,
       costs.scanning.value,
       addNewMessage,
       addBeacon,

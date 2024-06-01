@@ -13,6 +13,7 @@ export const DronePanel = () => {
   const selectedChunk = useGameStore((state) => state.selectedChunk);
   const selectedResource = useGameStore((state) => state.selectedResource);
   // const currentLocation = useGameStore((state) => state.currentLocation);
+  const droneScanLevel = useGameStore((state) => state.droneScanLevel);
 
   const chunkName = useMemo(() => {
     return convertChunkCoordinateToName(selectedChunk);
@@ -38,6 +39,7 @@ export const DronePanel = () => {
 
   return (
     <BasicPanelWrapper titleText="Drone:" styles="" opacity={opacity}>
+      <div>Drone Scanner Level: {droneScanLevel}</div>
       <div className="flex w-full flex-col items-center">
         <button
           className={`orbitron mx-3 my-2 flex items-center justify-center border border-uilines px-2 py-1 text-sm uppercase hover:opacity-70 ${autoPilot ? "bg-uilines text-neutral-900" : "text-uitext"}`}

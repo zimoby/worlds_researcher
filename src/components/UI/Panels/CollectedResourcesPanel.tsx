@@ -38,7 +38,7 @@ export const CollectedResourcesPanel = () => {
               })
             }
           >
-            <div className="orbitron text-2xl">{numberSimplified(count)}</div>
+            <div className="orbitron text-xl">{numberSimplified(count)}</div>
             <div className=" text-xs leading-3">{resource}</div>
           </div>
         ))}

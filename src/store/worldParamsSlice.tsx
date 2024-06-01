@@ -98,7 +98,6 @@ export const terrainTypes: TerrainTypesT = {
 };
 
 export type TerrainTypesT = Record<string, Terrain>;
-export type ResourceTypesT = Record<string, Resource>;
 export type ArtifactsCollectedT = Record<string, number>;
 
 export type ResourceType =
@@ -115,7 +114,12 @@ export const resourceNames = [
   "Hydrocarbons",
 ];
 
-export const resourceTypes: ResourceTypesT = {
+export type ResourceName = (typeof resourceNames)[number];
+
+export const resourceTypes: Record<
+  ResourceName,
+  { color: Color; threshold: number; score: number }
+> = {
   [resourceNames[0]]: {
     color: new Color(16777215), // white
     threshold: 0.1,
@@ -152,6 +156,8 @@ export const parseResourcesColors = (): { color: number[] }[] => {
   return resColors;
 };
 
+export const SEVERE_PROB_DESTROING = 0.2;
+
 export type ArtifactType = "usual" | "rare" | "legendary";
 
 export interface BeaconType {
@@ -163,6 +169,8 @@ export interface BeaconType {
   chunkY: number;
   visible: boolean;
   id: string;
+  armor: number;
+  collectionLevel: number;
 }
 
 export interface ArtifactT {
@@ -212,11 +220,10 @@ export const createWorldParamsSlice: StateCreator<
 
   increaseBeconsLimit: () => {
     set((state) => {
-      if (state.playerPoints >= state.costs.extendBeaconLimits.value) {
+      if (state.energy >= state.costs.extendBeaconLimits.value) {
         return {
           beaconsLimit: state.beaconsLimit + 1,
-          playerPoints:
-            state.playerPoints - state.costs.extendBeaconLimits.value,
+          energy: state.energy - state.costs.extendBeaconLimits.value,
           message: `Beacons limit increased to ${state.beaconsLimit + 1}`,
         };
       } else {
@@ -283,13 +290,12 @@ export const createWorldParamsSlice: StateCreator<
       locationsHistory: [{ x: 0, y: 0 }],
 
       collectedResources: {
-        Water: 0,
-        Metals: 0,
-        "Rare Elements": 0,
-        Hydrocarbons: 0,
+        Water: 900,
+        Metals: 900,
+        "Rare Elements": 900,
+        Hydrocarbons: 900,
       },
       message: "",
-      scanRadius: 30,
       weatherCondition: "Mild",
     });
     get().addVisitedWorld(newWorldParams);

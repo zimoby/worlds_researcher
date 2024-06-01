@@ -1,6 +1,11 @@
 import { useCallback } from "react";
 import { BEACONS_RANGE, useGameStore } from "../../store/store";
-import { BeaconType, ResourceType } from "../../store/worldParamsSlice";
+import {
+  BeaconType,
+  ResourceType,
+  SEVERE_PROB_DESTROING,
+} from "../../store/worldParamsSlice";
+import { armorDestructionModifiers } from "../../store/upgradeStateSlice";
 
 export const useProcessBeacons = () => {
   const addLog = useGameStore((state) => state.addLog);
@@ -10,8 +15,13 @@ export const useProcessBeacons = () => {
   const decreasePlayerPoints = useGameStore(
     (state) => state.decreasePlayerPoints,
   );
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
   const beaconsLimit = useGameStore((state) => state.beaconsLimit);
+
+  const resourceCollectionLevel = useGameStore(
+    (state) => state.resourceCollectionLevel,
+  );
+  const beaconsArmorLevel = useGameStore((state) => state.beaconsArmorLevel);
 
   const addBeacon = useCallback(
     ({
@@ -59,7 +69,7 @@ export const useProcessBeacons = () => {
         return;
       }
 
-      if (playerPoints >= costs.placeBeacon.value) {
+      if (energy >= costs.placeBeacon.value) {
         decreasePlayerPoints(costs.placeBeacon.value);
         addLog(`Beacon placed at ${currentChunk.x}, ${currentChunk.y}`);
       } else {
@@ -81,6 +91,8 @@ export const useProcessBeacons = () => {
             chunkY: currentChunk.y,
             visible: true,
             id: Math.random().toString(36).substr(2, 9),
+            armor: beaconsArmorLevel,
+            collectionLevel: resourceCollectionLevel,
           },
         ];
         return { beacons: newBeacons };
@@ -92,27 +104,26 @@ export const useProcessBeacons = () => {
       beaconsLimit,
       costs.placeBeacon.value,
       decreasePlayerPoints,
-      playerPoints,
+      energy,
+      resourceCollectionLevel,
+      beaconsArmorLevel,
     ],
   );
 
   const destroyBeacons = useCallback(() => {
     if (weatherCondition.toLowerCase() === "severe") {
-      const destroyPercentage = 0.2;
-      const numBeaconsToDestroy = Math.floor(
-        beacons.length * destroyPercentage,
-      );
+      const destroyedBeacons: BeaconType[] = [];
 
-      if (numBeaconsToDestroy > 0) {
-        const destroyedBeacons: BeaconType[] = [];
-
-        for (let i = 0; i < numBeaconsToDestroy; i++) {
-          const randomIndex = Math.floor(Math.random() * beacons.length);
-          const destroyedBeacon = beacons[randomIndex];
-          destroyedBeacons.push(destroyedBeacon);
-          beacons.splice(randomIndex, 1);
+      beacons.forEach((beacon) => {
+        const armorLevel = beacon.armor;
+        const destructionProbability =
+          SEVERE_PROB_DESTROING * armorDestructionModifiers[armorLevel];
+        if (Math.random() < destructionProbability) {
+          destroyedBeacons.push(beacon);
         }
+      });
 
+      if (destroyedBeacons.length > 0) {
         useGameStore.setState((state) => {
           const newBeacons = state.beacons.filter(
             (beacon) => !destroyedBeacons.includes(beacon),
@@ -121,10 +132,10 @@ export const useProcessBeacons = () => {
         });
 
         useGameStore.setState({
-          message: `Destroyed ${numBeaconsToDestroy} beacons due to severe weather.`,
+          message: `Destroyed ${destroyedBeacons.length} beacons due to severe weather.`,
         });
         addLog(
-          `Destroyed ${numBeaconsToDestroy} beacons due to severe weather.`,
+          `Destroyed ${destroyedBeacons.length} beacons due to severe weather.`,
         );
       }
     }

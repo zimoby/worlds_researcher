@@ -46,13 +46,13 @@ const usePhraseSystem = () => {
   const updateVariableInLocalStorage = useGameStore(
     (state) => state.updateVariableInLocalStorage,
   );
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
   const setColors = useGameStore((state) => state.setColors);
 
   const [gameOverState, setGameOverState] = useState(false);
 
   useEffect(() => {
-    if (playerPoints <= 0 && beacons.length === 0) {
+    if (energy <= 0 && beacons.length === 0) {
       setGameOverState(true);
       setActivePhrase({
         phrase: "SOS. No energy left. We are lost on this planet.",
@@ -64,7 +64,7 @@ const usePhraseSystem = () => {
       };
       setColors(newColors);
     }
-  }, [playerPoints, beacons.length, setColors]);
+  }, [energy, beacons.length, setColors]);
 
   useEffect(() => {
     if (!educationMode) {

@@ -1,5 +1,5 @@
 import { useCallback } from "react";
-import { useGameStore } from "../../store/store";
+import { GET_ARTIFACT_RADIUS, useGameStore } from "../../store/store";
 import { ArtifactT } from "../../store/worldParamsSlice";
 
 const getArtifactInRadius = (
@@ -10,7 +10,7 @@ const getArtifactInRadius = (
     const dx = position.x - beacon.x;
     const dz = position.y - beacon.z;
     const distance = Math.sqrt(dx * dx + dz * dz);
-    return distance < 20;
+    return distance < GET_ARTIFACT_RADIUS;
   });
 };
 

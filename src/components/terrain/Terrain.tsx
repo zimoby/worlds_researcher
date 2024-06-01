@@ -55,9 +55,9 @@ export const Terrain = () => {
   const seed = useGameStore((state) => state.worldParams.seed);
   const mapDetailes = useGameStore((state) => state.worldParams.mapDetailes);
   const canPlaceBeacon = useGameStore((state) => state.canPlaceBeacon);
-  const scanRadius = useGameStore((state) => state.scanRadius);
+  const droneScanLevel = useGameStore((state) => state.droneScanLevel);
   const activePosition = useGameStore((state) => state.activePosition);
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
   const terrainColors = useGameStore((state) => state.terrainColors);
 
   const widthCount = Math.floor(width / resolution);
@@ -108,9 +108,9 @@ export const Terrain = () => {
         offset.current.x + offsetX,
         offset.current.y + offsetY,
         terrainGeometry.current,
-        canPlaceBeacon && playerPoints >= 50,
+        canPlaceBeacon && energy >= 50,
         activePosition,
-        scanRadius,
+        droneScanLevel,
         resources.current,
         colors.current,
         positions.current,

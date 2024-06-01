@@ -9,10 +9,16 @@ import {
   SETTING_INVERT_DIRECTION,
   SETTING_START_SCREEN,
 } from "./store";
-import { ResourceType, resourceNames, resourceTypes } from "./worldParamsSlice";
+import {
+  ResourceName,
+  ResourceType,
+  resourceNames,
+  resourceTypes,
+} from "./worldParamsSlice";
 import { generateWeather } from "../utils/generators";
 import { WeatherCondition } from "./worldParamsSlice";
 import { generateUUID } from "three/src/math/MathUtils.js";
+import { resourceCollectionMultipliers } from "./upgradeStateSlice";
 
 export interface Offset {
   x: number;
@@ -24,7 +30,7 @@ export interface ChunkType {
   y: number;
 }
 
-export type CollectedResources = Record<string, number>;
+export type CollectedResources = Record<ResourceName, number>;
 
 export type CostsT = Record<
   string,
@@ -77,7 +83,7 @@ export interface GameStateSlice {
   droneVectorMovement: Offset;
   droneMoveAngle: number;
   dynamicSpeed: number;
-  playerPoints: number;
+  energy: number;
   decreasePlayerPoints: (points: number) => void;
 
   locationsHistory: ChunkType[];
@@ -89,7 +95,6 @@ export interface GameStateSlice {
   addNewMessage: (message: string) => void;
   logs: LogWithIdT[];
   eventsLog: LogWithIdT[];
-  scanRadius: number;
   canPlaceBeacon: boolean;
   activePosition: { x: number; y: number; z: number };
   weatherCondition: WeatherCondition;
@@ -199,11 +204,11 @@ export const createGameStateSlice: StateCreator<
     });
   },
 
-  playerPoints: DEV_MODE ? 20000 : 1000,
+  energy: DEV_MODE ? 20000 : 1000,
 
   decreasePlayerPoints: (points: number) => {
     set((state) => {
-      return { playerPoints: state.playerPoints - points };
+      return { energy: state.energy - points };
     });
   },
 
@@ -218,7 +223,7 @@ export const createGameStateSlice: StateCreator<
     const {
       beacons,
       collectedResources,
-      playerPoints,
+      energy,
       canPlaceBeacon,
       costs,
       addEventLog,
@@ -231,17 +236,22 @@ export const createGameStateSlice: StateCreator<
 
     const newCollectedResources = beacons.reduce(
       (resources, beacon) => {
-        resources[beacon.resource] = (resources[beacon.resource] || 0) + 1;
+        resources[beacon.resource] =
+          (resources[beacon.resource] || 0) +
+          1 * resourceCollectionMultipliers[beacon.collectionLevel];
         return resources;
       },
       { ...collectedResources },
     );
 
     const pointsEarned = beacons.reduce(
-      (total, beacon) => total + resourceTypes[beacon.resource].score,
+      (total, beacon) =>
+        total +
+        resourceTypes[beacon.resource].score *
+          resourceCollectionMultipliers[beacon.collectionLevel],
       0,
     );
-    let newPlayerPoints = playerPoints + pointsEarned;
+    let newPlayerPoints = energy + pointsEarned;
 
     const combinedSpeed = dynamicSpeed * mapParams.speed;
 
@@ -273,10 +283,10 @@ export const createGameStateSlice: StateCreator<
 
     set({
       collectedResources: newCollectedResources,
-      playerPoints: Math.max(newPlayerPoints, 0),
+      energy: Math.max(newPlayerPoints, 0),
       mapParams: {
         ...mapParams,
-        speed: playerPoints > 0 ? mapParams.speed : 1,
+        speed: energy > 0 ? mapParams.speed : 1,
       },
     });
   },
@@ -292,18 +302,21 @@ export const createGameStateSlice: StateCreator<
 
   logs: [],
   eventsLog: [],
-  scanRadius: 30,
   canPlaceBeacon: false,
   activePosition: { x: 0, y: 0, z: 0 },
   weatherCondition: "Mild",
 
   costs: {
-    scanning: { name: "Scanning per sec", value: 50 },
-    flyToNewWorld: { name: "Fly to new world", value: 10000 },
-    placeBeacon: { name: "Place beacon", value: 100 },
-    extendBeaconLimits: { name: "Extend beacons limits", value: 1000 },
-    increaseSpeed: { name: "Extra speed", value: 5, valueAlt: "x" },
-    increaseMapSize: { name: "Extra map size", value: 2, valueAlt: "x" },
+    scanning: { name: "Scanning per sec", value: 50, valueAlt: "en" },
+    flyToNewWorld: { name: "Fly to new world", value: 10000, valueAlt: "en" },
+    placeBeacon: { name: "Place beacon", value: 100, valueAlt: "en" },
+    extendBeaconLimits: {
+      name: "Extend beacons limits",
+      value: 1000,
+      valueAlt: "en",
+    },
+    increaseSpeed: { name: "Extra speed", value: 5, valueAlt: "x en" },
+    increaseMapSize: { name: "Extra map size", value: 2, valueAlt: "x en" },
   },
   updateWeather: (): WeatherCondition | null => {
     const newWeather = generateWeather();

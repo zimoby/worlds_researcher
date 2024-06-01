@@ -10,14 +10,14 @@ export const FlyToNewWorld = () => {
   const decreasePlayerPoints = useGameStore(
     (state) => state.decreasePlayerPoints,
   );
-  const playerPoints = useGameStore((state) => state.playerPoints);
+  const energy = useGameStore((state) => state.energy);
   const costs = useGameStore((state) => state.costs);
   const opacity = useGameStore(
     (state) => state.uiPanelsState.newWorldButton.opacity,
   );
 
   const moveToTheNewWorld = useCallback(() => {
-    if (playerPoints >= costs.flyToNewWorld.value) {
+    if (energy >= costs.flyToNewWorld.value) {
       decreasePlayerPoints(costs.flyToNewWorld.value);
       useGameStore.getState().setMapAnimationState("shrinking");
     } else {
@@ -25,7 +25,7 @@ export const FlyToNewWorld = () => {
         message: `Not enough energy to move to the new world. Need ${costs.flyToNewWorld.value} energy`,
       });
     }
-  }, [costs, decreasePlayerPoints, playerPoints]);
+  }, [costs, decreasePlayerPoints, energy]);
 
   if (!animationFirstStage) return null;
 

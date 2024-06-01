@@ -13,6 +13,7 @@ import { ResourceType } from "../../store/worldParamsSlice";
 import { resourceTypes } from "../../store/worldParamsSlice";
 import { terrainTypes } from "../../store/worldParamsSlice";
 import { NoiseFunction2D } from "simplex-noise";
+import { droneScanAreaValues } from "../../store/upgradeStateSlice";
 
 const updateBufferAttribute = (
   geometry: BufferGeometry<NormalBufferAttributes>,
@@ -149,7 +150,7 @@ export const generateTerrain = (
   geometry: BufferGeometry<NormalBufferAttributes>,
   canPlaceBeacon: boolean,
   activePosition: { x: number; z: number },
-  scanRadius = 0,
+  droneScanLevel = 0,
   resources: ResourceType[],
   colors: Float32Array,
   positions: Float32Array,
@@ -193,7 +194,7 @@ export const generateTerrain = (
       for (let j = 0; j <= widthCount; j++) {
         const posX = (j / widthCount) * width - mousePosX;
         const distance = Math.sqrt(posX ** 2 + posZ ** 2);
-        if (distance <= scanRadius) {
+        if (distance <= droneScanAreaValues[droneScanLevel]) {
           const index = i * (widthCount + 1) + j;
           const resource = resources[index];
           if (resource) {
