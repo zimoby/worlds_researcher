@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useGameStore } from "../store/store";
 import { useProcessBeacons } from "../components/beacons/beaconUtils";
-import { WEATHER_UPDATE_INTERVAL } from "../store/worldConfig";
+import { WEATHER_UPDATE_INTERVAL } from "../store/constants/worldConfig";
 
 export const useGameLoop = () => {
   const { destroyBeacons } = useProcessBeacons();

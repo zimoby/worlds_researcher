@@ -1,12 +1,16 @@
 import { StateCreator } from "zustand";
 import { GameStoreState } from "../store";
 import { colors, setColors } from "../../assets/colors";
-
-interface UiPanelsStateType {
-  opacity: number;
-}
+import { ModalName, UiPanelsStateType } from "../types";
+import { PanelNamesT } from "../types";
 
 export interface UiPanelsStateSlice {
+  showSettingsModal: boolean;
+  showAboutModal: boolean;
+  showArtifactsModal: boolean;
+  showMapModal: boolean;
+  showChangeLogModal: boolean;
+
   uiPanelsState: {
     titlePanel: UiPanelsStateType;
     planetPanel: UiPanelsStateType;
@@ -30,25 +34,8 @@ export interface UiPanelsStateSlice {
   updatePanelOpacity: (panelName: PanelNamesT, value: number) => void;
   soloPanelOpacity: (panelName?: PanelNamesT) => void;
   resetPanelsOpacity: () => void;
+  toggleModal: (modalName: ModalName) => void;
 }
-
-type PanelNamesT =
-  | "titlePanel"
-  | "planetPanel"
-  | "collectedResourcesPanel"
-  | "scanerPanel"
-  | "progressPanel"
-  | "systemMessagePanel"
-  | "systemControlsPanel"
-  | "logsPanel"
-  | "beaconPanel"
-  | "eventsPanel"
-  | "collectedArtifactsPanel"
-  | "costsPanel"
-  | "emptyPanel"
-  | "supportPanels"
-  | "settingsButton"
-  | "newWorldButton";
 
 export const createUiPanelsStateSlice: StateCreator<
   GameStoreState,
@@ -56,6 +43,12 @@ export const createUiPanelsStateSlice: StateCreator<
   [],
   UiPanelsStateSlice
 > = (set) => ({
+  showSettingsModal: false,
+  showAboutModal: false,
+  showArtifactsModal: false,
+  showMapModal: false,
+  showChangeLogModal: false,
+
   uiPanelsState: {
     titlePanel: { opacity: 1 },
     planetPanel: { opacity: 1 },
@@ -76,6 +69,7 @@ export const createUiPanelsStateSlice: StateCreator<
   },
 
   colors: colors,
+  
   setColors: (newColors) => {
     set({ colors: newColors });
     setColors(newColors);
@@ -118,6 +112,11 @@ export const createUiPanelsStateSlice: StateCreator<
       return {
         uiPanelsState: newPanelsState,
       };
+    });
+  },
+  toggleModal: (modalName: ModalName) => {
+    set((state) => {
+      return { [modalName]: !state[modalName] };
     });
   },
 });

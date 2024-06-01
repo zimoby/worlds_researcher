@@ -1,7 +1,7 @@
 import { useGameStore } from "../../store/store";
 import { convertChunkCoordinateToName } from "../../utils/functions";
 import { BasicPanelWrapper } from "../UI/BasicPanelWrapper";
-import { ARTIFACT_AMOUNT } from "../../store/worldConfig";
+import { ARTIFACT_AMOUNT } from "../../store/constants/worldConfig";
 
 export const ArtifactsInfo = () => {
   const artifacts = useGameStore((state) => state.artifacts);

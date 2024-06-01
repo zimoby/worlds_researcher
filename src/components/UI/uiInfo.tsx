@@ -31,7 +31,7 @@ import { DronePanel } from "./Panels/DronePanel";
 import { AboutButton } from "./Elements/AboutButton";
 import { LogOfChanges } from "./Elements/LogOfChangesButton";
 import ChangeLogModal from "./Modals/ChangeLogModal";
-import { START_DELAY } from "../../store/worldConfig";
+import { START_DELAY } from "../../store/constants/worldConfig";
 
 export const UiInfo = () => {
   const animationFirstStage = useGameStore(

@@ -7,6 +7,7 @@ import { useProcessBeacons } from "../components/beacons/beaconUtils";
 import { getChunkCoordinates } from "../utils/functions";
 import { useProcessArtifacts } from "../components/artifacts/artifactUtils";
 import { keyToVector, getIntersection } from "../utils/mapUtils";
+import { COSTS } from "../store/constants/worldConfig";
 
 export const useKeyboardControls = ({
   meshRef,
@@ -149,7 +150,6 @@ export const useCanvasHover = ({
   const { addBeacon } = useProcessBeacons();
   const { takeArtifact, checkArtifactInRadius } = useProcessArtifacts();
   const addNewMessage = useGameStore((state) => state.addNewMessage);
-  const costs = useGameStore((state) => state.costs);
   const energy = useGameStore((state) => state.energy);
 
   const throttledSetState = useRef(
@@ -162,7 +162,7 @@ export const useCanvasHover = ({
   const handleCanvasHover = useCallback(
     (event: { clientX: number; clientY: number; type: string }) => {
       if (!canPlaceBeacon || !meshRef.current) {
-        if (energy < costs.scanning.value) {
+        if (energy < COSTS.scanning.value) {
           addNewMessage("Not enough energy to scan");
         }
         return;
@@ -241,7 +241,6 @@ export const useCanvasHover = ({
       throttledSetState,
       checkArtifactInRadius,
       energy,
-      costs.scanning.value,
       addNewMessage,
       addBeacon,
       offsetX,

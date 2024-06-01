@@ -1,8 +1,8 @@
 import { MutableRefObject, useEffect } from "react";
 import { useGameStore } from "../store/store";
 import { DEV_MODE } from "../store/constants/appConstants";
-import { resourceTypes } from "../store/worldConfig";
-import { ChunkType } from "../store/slices";
+import { resourceTypes } from "../store/constants/worldConfig";
+import { ChunkType } from "../store/types";
 
 export const generateUniqueId = () => `${Date.now()}-${Math.random()}`;
 

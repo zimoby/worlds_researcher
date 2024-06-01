@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { useGameStore } from "../../store/store";
-import { GET_ARTIFACT_RADIUS } from "../../store/worldConfig";
+import { GET_ARTIFACT_RADIUS } from "../../store/constants/worldConfig";
 import { ArtifactT } from "../../store/types";
 
 const getArtifactInRadius = (

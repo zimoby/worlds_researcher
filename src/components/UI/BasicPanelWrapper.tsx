@@ -1,5 +1,3 @@
-
-
 import { useGameStore } from "../../store/store";
 import { ModalName } from "../../store/types";
 

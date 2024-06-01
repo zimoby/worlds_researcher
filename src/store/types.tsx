@@ -1,5 +1,5 @@
 import { Color } from "three";
-import { resourceNames } from "./worldConfig";
+import { resourceNames } from "./constants/worldConfig";
 
 interface Thresholds {
   pollution?: number;
@@ -18,7 +18,14 @@ export type TerrainType = "water" | "grass" | "dirt" | "snow" | "default";
 
 export type WeatherCondition = "Mild" | "Moderate" | "Severe";
 export interface WorldState {
-  value: "Extreme" | "Danger" | "Normal" | "Safe" | "Hazardous" | "Stormy" | "Extreme temperature";
+  value:
+    | "Extreme"
+    | "Danger"
+    | "Normal"
+    | "Safe"
+    | "Hazardous"
+    | "Stormy"
+    | "Extreme temperature";
   name: string;
 }
 
@@ -68,7 +75,12 @@ export type TerrainTypesT = Record<string, Terrain>;
 
 export type ArtifactsCollectedT = Record<string, number>;
 
-export type ResourceType = "Water" | "Metals" | "Rare Elements" | "Hydrocarbons" | "empty";
+export type ResourceType =
+  | "Water"
+  | "Metals"
+  | "Rare Elements"
+  | "Hydrocarbons"
+  | "empty";
 
 export type ResourceName = (typeof resourceNames)[number];
 export type ArtifactType = "usual" | "rare" | "legendary";
@@ -106,3 +118,66 @@ export type ModalName =
   | "showArtifactsModal"
   | "showMapModal"
   | "showChangeLogModal";
+type ResoucesAndEnergyNamesType = ResourceName | "Energy";
+export type UpgradeCosts = {
+  [key in ResoucesAndEnergyNamesType]?: number;
+};
+export type UpgradeType = "resourceCollection" | "beaconsArmor" | "droneScan";
+export interface UiPanelsStateType {
+  opacity: number;
+}
+export type PanelNamesT =
+  | "titlePanel"
+  | "planetPanel"
+  | "collectedResourcesPanel"
+  | "scanerPanel"
+  | "progressPanel"
+  | "systemMessagePanel"
+  | "systemControlsPanel"
+  | "logsPanel"
+  | "beaconPanel"
+  | "eventsPanel"
+  | "collectedArtifactsPanel"
+  | "costsPanel"
+  | "emptyPanel"
+  | "supportPanels"
+  | "settingsButton"
+  | "newWorldButton";
+export interface GridConfig {
+  chunkSize: number;
+  subGrids: number;
+  lineWidth: number;
+  gridColor: string;
+  subGridColor: string;
+}
+
+export interface MapParams {
+  width: number;
+  depth: number;
+  resolution: number;
+  scale: number;
+  offsetX: number;
+  offsetY: number;
+  speed: number;
+}
+export interface Offset {
+  x: number;
+  y: number;
+}
+
+export interface ChunkType {
+  x: number;
+  y: number;
+}
+
+export type CollectedResources = Record<ResourceName, number>;
+
+export type CostsT = Record<
+  string,
+  { name: string; value: number; valueAlt?: string }
+>;
+
+export interface LogWithIdT {
+  id: string;
+  text: string;
+}

@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useGameStore } from "../store/store";
-import { movementDirections } from "../store/worldConfig";
+import { movementDirections } from "../store/constants/worldConfig";
 
 export const useAutoPilot = () => {
   const currentLocation = useGameStore((state) => state.currentLocation);

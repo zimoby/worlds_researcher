@@ -1,8 +1,8 @@
 // worldConfig.js
 
 import { Color } from "three";
-import { ResourceName, WorldStateThresholds } from "./types";
-import { TerrainTypesT } from "./types";
+import { CostsT, ResourceName, UpgradeCosts, WorldStateThresholds } from "../types";
+import { TerrainTypesT } from "../types";
 
 // GAME TIMING
 
@@ -208,12 +208,7 @@ export const BEACONS_RANGE = 20;
 
 // RESOURCES
 
-export const resourceNames = [
-  "Water",
-  "Metals",
-  "Rare Elements",
-  "Hydrocarbons",
-];
+export const resourceNames = ["Water", "Metals", "Rare Elements", "Hydrocarbons"];
 
 export const resourceTypes: Record<
   ResourceName,
@@ -241,6 +236,8 @@ export const resourceTypes: Record<
   },
 };
 
+// MAP
+
 export const movementDirections = [
   { x: -1, y: 0, label: "a" },
   { x: 0, y: -1, label: "w" },
@@ -248,3 +245,70 @@ export const movementDirections = [
   { x: 1, y: 0, label: "d" },
 ];
 
+// UPGRADES
+
+export const beaconsArmorNames = ["None", "Light", "Medium", "Heavy"];
+export const beaconsArmorColors = ["#ffffff", "#ff0000", "#00ff00", "#00ffff"];
+export const armorDestructionModifiers = [1, 0.75, 0.5, 0.25];
+
+export const resourceCollectionNames = ["None", "Basic", "Advanced", "Elite"];
+export const resourceCollectionMultipliers = [1, 2, 5, 10];
+
+export const droneScanNames = ["Basic", "Advanced", "Mega", "Elite", "Ultimate"];
+export const droneScanAreaValues = [20, 30, 40, 50, 60];
+export const upgradeCosts = {
+  resourceCollection: [
+    { Water: 100, Metals: 50, "Rare Elements": 20, Energy: 80 } as UpgradeCosts,
+    { Water: 2, Metals: 2, "Rare Elements": 2, Energy: 800 } as UpgradeCosts,
+    { Water: 2, Metals: 2, "Rare Elements": 2, Energy: 8000 } as UpgradeCosts,
+  ],
+  beaconsArmor: [
+    {
+      Metals: 150,
+      "Rare Elements": 50,
+      Hydrocarbons: 100,
+      Energy: 120,
+    } as UpgradeCosts,
+    {
+      Metals: 1500,
+      "Rare Elements": 500,
+      Hydrocarbons: 1000,
+      Energy: 1200,
+    } as UpgradeCosts,
+    {
+      Metals: 15000,
+      "Rare Elements": 5000,
+      Hydrocarbons: 10000,
+      Energy: 12000,
+    } as UpgradeCosts,
+  ],
+  droneScan: [
+    { Water: 50, Metals: 20, Hydrocarbons: 30, Energy: 40 } as UpgradeCosts,
+    { Water: 500, Metals: 200, Hydrocarbons: 300, Energy: 400 } as UpgradeCosts,
+    {
+      Water: 5000,
+      Metals: 2000,
+      Hydrocarbons: 3000,
+      Energy: 4000,
+    } as UpgradeCosts,
+    {
+      Water: 50000,
+      Metals: 20000,
+      Hydrocarbons: 30000,
+      Energy: 40000,
+    } as UpgradeCosts,
+  ],
+};
+
+export const COSTS: CostsT = {
+  scanning: { name: "Scanning per sec", value: 50, valueAlt: "en" },
+  flyToNewWorld: { name: "Fly to new world", value: 10000, valueAlt: "en" },
+  placeBeacon: { name: "Place beacon", value: 100, valueAlt: "en" },
+  extendBeaconLimits: {
+    name: "Extend beacons limits",
+    value: 1000,
+    valueAlt: "en",
+  },
+  increaseSpeed: { name: "Extra speed", value: 5, valueAlt: "x en" },
+  increaseMapSize: { name: "Extra map size", value: 2, valueAlt: "x en" },
+};

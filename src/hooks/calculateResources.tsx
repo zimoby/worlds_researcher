@@ -1,17 +1,17 @@
 import { useEffect } from "react";
 import { useGameStore } from "../store/store";
-import { RESOURCE_UPDATE_INTERVAL } from "../store/worldConfig";
+import { RESOURCE_UPDATE_INTERVAL } from "../store/constants/worldConfig";
 
 export const useCalculateResources = () => {
-  const updateResourcesAndPoints = useGameStore(
-    (state) => state.updateResourcesAndPoints,
+  const updateResourcesAndEnergy = useGameStore(
+    (state) => state.updateResourcesAndEnergy,
   );
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      updateResourcesAndPoints();
+      updateResourcesAndEnergy();
     }, RESOURCE_UPDATE_INTERVAL);
 
     return () => clearInterval(intervalId);
-  }, [updateResourcesAndPoints]);
+  }, [updateResourcesAndEnergy]);
 };

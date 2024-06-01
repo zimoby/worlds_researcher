@@ -3,36 +3,33 @@ import { StateCreator } from "zustand";
 import {
   generateArtifacts,
   generateRandomColor,
+  generateWeather,
   generateWorld,
 } from "../../utils/generators";
 import { GameStoreState } from "../store";
 import {
   ARTIFACT_AMOUNT,
-  INITIAL_BEACONS,
   INITIAL_RESOURCES,
   TERRAIN_COLORS,
-} from "../worldConfig";
-import { terrainTypes } from "../worldConfig";
-import { WorldParamsType, ArtifactsCollectedT, TerrainTypesT } from "../types";
+} from "../constants/worldConfig";
+import { terrainTypes } from "../constants/worldConfig";
+import { WorldParamsType, ArtifactsCollectedT, TerrainTypesT, WeatherCondition } from "../types";
 import { ArtifactType } from "../types";
 import { BeaconType, ArtifactT } from "../types";
 
 export interface WorldParamsSlice {
   worldParams: WorldParamsType;
   beacons: BeaconType[];
-  beaconsLimit: number;
-
   artifacts: ArtifactT[];
   artifactsArray: ArtifactT[];
   artifactsCollectedByTypes: ArtifactsCollectedT;
   artifactSelected: string;
   terrainColors: TerrainTypesT;
-
   visitedWorlds: WorldParamsType[];
+  weatherCondition: WeatherCondition;
+  updateWeather: () => WeatherCondition | null;
   addVisitedWorld: (params: WorldParamsType) => void;
-
   regenerateWorld: () => void;
-  increaseBeconsLimit: () => void;
   addArtifactToCollection: (type: ArtifactType) => void;
   addToArtifactsArray: (artifact: ArtifactT) => void;
 }
@@ -44,24 +41,6 @@ export const createWorldParamsSlice: StateCreator<
   WorldParamsSlice
 > = (set, get) => ({
   beacons: [],
-  beaconsLimit: INITIAL_BEACONS,
-
-  increaseBeconsLimit: () => {
-    set((state) => {
-      if (state.energy >= state.costs.extendBeaconLimits.value) {
-        return {
-          beaconsLimit: state.beaconsLimit + 1,
-          energy: state.energy - state.costs.extendBeaconLimits.value,
-          message: `Beacons limit increased to ${state.beaconsLimit + 1}`,
-        };
-      } else {
-        return {
-          message: `Not enough energy to increase beacons limit`,
-        };
-      }
-    });
-  },
-
   artifacts: generateArtifacts({ amount: ARTIFACT_AMOUNT }),
   artifactSelected: "",
   artifactsCollectedByTypes: {
@@ -69,31 +48,23 @@ export const createWorldParamsSlice: StateCreator<
     rare: 0,
     legendary: 0,
   },
-  addArtifactToCollection: (type: ArtifactType) => {
-    set((state) => {
-      return {
-        artifactsCollectedByTypes: {
-          ...state.artifactsCollectedByTypes,
-          [type]: state.artifactsCollectedByTypes[type] + 1,
-        },
-      };
-    });
-  },
   artifactsArray: [],
+  terrainColors: terrainTypes,
+  visitedWorlds: [],
+  worldParams: generateWorld(),
 
-  addToArtifactsArray: (artifact: ArtifactT) => {
-    set((state) => {
-      return {
-        artifactsArray: [...state.artifactsArray, artifact],
-      };
-    });
+  weatherCondition: "Mild",
+
+  updateWeather: (): WeatherCondition | null => {
+    const newWeather = generateWeather();
+    if (newWeather === get().weatherCondition) {
+      return null;
+    } else {
+      set({ weatherCondition: newWeather });
+      return newWeather;
+    }
   },
 
-  terrainColors: terrainTypes,
-
-  visitedWorlds: [],
-
-  worldParams: generateWorld(),
   regenerateWorld: () => {
     const newTerrainColors = {
       water: {
@@ -138,5 +109,24 @@ export const createWorldParamsSlice: StateCreator<
     if (isUnique) {
       set({ visitedWorlds: [...visitedWorlds, params] });
     }
+  },
+
+  addArtifactToCollection: (type: ArtifactType) => {
+    set((state) => {
+      return {
+        artifactsCollectedByTypes: {
+          ...state.artifactsCollectedByTypes,
+          [type]: state.artifactsCollectedByTypes[type] + 1,
+        },
+      };
+    });
+  },
+
+  addToArtifactsArray: (artifact: ArtifactT) => {
+    set((state) => {
+      return {
+        artifactsArray: [...state.artifactsArray, artifact],
+      };
+    });
   },
 });

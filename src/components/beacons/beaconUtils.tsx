@@ -1,18 +1,17 @@
 import { useCallback } from "react";
 import { useGameStore } from "../../store/store";
-import { BEACONS_RANGE } from "../../store/worldConfig";
+import { BEACONS_RANGE, COSTS } from "../../store/constants/worldConfig";
 import { BeaconType } from "../../store/types";
 import { ResourceType } from "../../store/types";
-import { armorDestructionModifiers } from "../../store/slices/upgradeStateSlice";
-import { WEATHER_PROBABILITIES } from "../../store/worldConfig";
+import { armorDestructionModifiers } from "../../store/constants/worldConfig";
+import { WEATHER_PROBABILITIES } from "../../store/constants/worldConfig";
 
 export const useProcessBeacons = () => {
   const addLog = useGameStore((state) => state.addLog);
   const beacons = useGameStore((state) => state.beacons);
   const weatherCondition = useGameStore((state) => state.weatherCondition);
-  const costs = useGameStore((state) => state.costs);
-  const decreasePlayerPoints = useGameStore(
-    (state) => state.decreasePlayerPoints,
+  const decreaseEnergy = useGameStore(
+    (state) => state.decreaseEnergy,
   );
   const energy = useGameStore((state) => state.energy);
   const beaconsLimit = useGameStore((state) => state.beaconsLimit);
@@ -68,8 +67,8 @@ export const useProcessBeacons = () => {
         return;
       }
 
-      if (energy >= costs.placeBeacon.value) {
-        decreasePlayerPoints(costs.placeBeacon.value);
+      if (energy >= COSTS.placeBeacon.value) {
+        decreaseEnergy(COSTS.placeBeacon.value);
         addLog(`Beacon placed at ${currentChunk.x}, ${currentChunk.y}`);
       } else {
         useGameStore.setState({
@@ -101,8 +100,7 @@ export const useProcessBeacons = () => {
       addLog,
       beacons,
       beaconsLimit,
-      costs.placeBeacon.value,
-      decreasePlayerPoints,
+      decreaseEnergy,
       energy,
       resourceCollectionLevel,
       beaconsArmorLevel,

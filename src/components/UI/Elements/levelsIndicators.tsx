@@ -1,5 +1,8 @@
 import { useGameStore } from "../../../store/store";
-import { GROUND_MAX_LEVEL, GROUND_MIN_LEVEL } from "../../../store/worldConfig";
+import {
+  GROUND_MAX_LEVEL,
+  GROUND_MIN_LEVEL,
+} from "../../../store/constants/worldConfig";
 
 export const LevelsIndicators = () => {
   const activePosition = useGameStore((state) => state.activePosition);

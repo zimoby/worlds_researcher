@@ -1,6 +1,6 @@
 import { useMemo } from "react";
 import { useGameStore } from "../../../store/store";
-import { resourceTypes } from "../../../store/worldConfig";
+import { resourceTypes } from "../../../store/constants/worldConfig";
 import {
   WorldNumberParamT,
   WorldParamsType,

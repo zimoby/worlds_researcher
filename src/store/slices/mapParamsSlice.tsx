@@ -1,29 +1,28 @@
 import { StateCreator } from "zustand";
 import { GameStoreState } from "../store";
-
-export interface GridConfig {
-  chunkSize: number;
-  subGrids: number;
-  lineWidth: number;
-  gridColor: string;
-  subGridColor: string;
-}
-
-export interface MapParams {
-  width: number;
-  depth: number;
-  resolution: number;
-  scale: number;
-  offsetX: number;
-  offsetY: number;
-  speed: number;
-}
+import { ChunkType, GridConfig, MapParams, Offset, ResourceType } from "../types";
 
 export interface MapParamsSlice {
   gridConfig: GridConfig;
   mapParams: MapParams;
   showResources: boolean;
   mapAnimationState: "idle" | "shrinking" | "enlarging";
+
+  currentOffset: Offset;
+  selectedResource: ResourceType;
+  selectedChunk: ChunkType;
+  currentLocation: ChunkType;
+  moveDirection: Offset;
+  droneVectorMovement: Offset;
+  droneMoveAngle: number;
+  dynamicSpeed: number;
+  canPlaceBeacon: boolean;
+
+  locationsHistory: ChunkType[];
+  addLocationToHistory: (location: ChunkType) => void;
+
+  activePosition: { x: number; y: number; z: number };
+  
   setMapAnimationState: (state: "idle" | "shrinking" | "enlarging") => void;
   updateMapSize: (value: number) => void;
   updateMapParam: (paramName: string, value: unknown) => void;
@@ -54,6 +53,38 @@ export const createMapParamsSlice: StateCreator<
   },
   showResources: false,
   mapAnimationState: "idle",
+
+  currentOffset: { x: 0, y: 0 },
+  selectedResource: "Water",
+  selectedChunk: { x: 0, y: 0 },
+  currentLocation: { x: 0, y: 0 },
+  moveDirection: { x: 0, y: -1 },
+  droneVectorMovement: { x: 0, y: 0 },
+  droneMoveAngle: 0,
+  dynamicSpeed: 1,
+  canPlaceBeacon: false,
+
+  activePosition: { x: 0, y: 0, z: 0 },
+
+  locationsHistory: [
+    {
+      x: 0,
+      y: 0,
+    },
+  ],
+  addLocationToHistory: (location: ChunkType) => {
+    set((state) => {
+      if (
+        !state.locationsHistory.some(
+          (loc) => loc.x === location.x && loc.y === location.y,
+        )
+      ) {
+        return { locationsHistory: [...state.locationsHistory, location] };
+      }
+      return state;
+    });
+  },
+
   setMapAnimationState: (state) => set({ mapAnimationState: state }),
   updateMapSize: (value) => {
     set((state) => ({

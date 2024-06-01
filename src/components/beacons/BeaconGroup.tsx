@@ -1,5 +1,5 @@
 import { useGameStore } from "../../store/store";
-import { BEACONS_RANGE } from "../../store/worldConfig";
+import { BEACONS_RANGE } from "../../store/constants/worldConfig";
 import { Cylinder, Sphere } from "@react-three/drei";
 import { ConcentricCirclesAnimation } from "../gfx/concentricCircles";
 import { useFrame } from "@react-three/fiber";
@@ -7,7 +7,7 @@ import { isOutOfBound, useCalculateDeltas } from "../../utils/functions";
 import React, { createRef, useMemo } from "react";
 import { BufferGeometry, Group, Shape } from "three";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
-import { beaconsArmorColors } from "../../store/slices/upgradeStateSlice";
+import { beaconsArmorColors } from "../../store/constants/worldConfig";
 
 const beaconHeight = 10;
 

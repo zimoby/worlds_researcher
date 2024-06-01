@@ -6,11 +6,11 @@ import {
 } from "three";
 import { MapDetailesType, TerrainTypesT } from "../../store/types";
 import { ResourceType } from "../../store/types";
-import { resourceTypes } from "../../store/worldConfig";
-import { terrainTypes } from "../../store/worldConfig";
+import { resourceTypes } from "../../store/constants/worldConfig";
+import { terrainTypes } from "../../store/constants/worldConfig";
 import { NoiseFunction2D } from "simplex-noise";
-import { droneScanAreaValues } from "../../store/slices/upgradeStateSlice";
-import { GROUND_MIN_LEVEL } from "../../store/worldConfig";
+import { droneScanAreaValues } from "../../store/constants/worldConfig";
+import { GROUND_MIN_LEVEL } from "../../store/constants/worldConfig";
 
 const updateBufferAttribute = (
   geometry: BufferGeometry<NormalBufferAttributes>,

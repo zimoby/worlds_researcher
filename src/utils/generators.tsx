@@ -19,7 +19,7 @@ import {
   WIND_SPEED_RANGE,
   WORLD_SEED_LENGTH,
   WORLD_STATE_THRESHOLDS,
-} from "../store/worldConfig";
+} from "../store/constants/worldConfig";
 
 const getRandomValue = ([min, max]: number[]) =>
   Math.floor(min + Math.random() * (max - min));
