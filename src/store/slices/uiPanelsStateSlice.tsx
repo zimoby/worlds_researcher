@@ -69,7 +69,7 @@ export const createUiPanelsStateSlice: StateCreator<
   },
 
   colors: colors,
-  
+
   setColors: (newColors) => {
     set({ colors: newColors });
     setColors(newColors);

@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useGameStore } from "../store/store";
+import { CHUNK_SIZE } from "../store/constants/worldConfig";
 
 export const useEnergyActions = () => {
   const energy = useGameStore((state) => state.energy);
@@ -7,8 +8,8 @@ export const useEnergyActions = () => {
   const updateMapSize = useGameStore((state) => state.updateMapSize);
 
   useEffect(() => {
-    if ((width > 100 || depth > 100) && energy <= 0) {
-      updateMapSize(100);
+    if ((width > CHUNK_SIZE || depth > CHUNK_SIZE) && energy <= 0) {
+      updateMapSize(CHUNK_SIZE);
     }
   }, [width, depth, energy, updateMapSize]);
 };

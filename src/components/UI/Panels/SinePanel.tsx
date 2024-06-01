@@ -1,14 +1,17 @@
 import { useMemo } from "react";
 import { useGameStore } from "../../../store/store";
-import { parseResourcesColors } from "../../../utils/functions";
-import { resourceNames } from "../../../store/constants/worldConfig";
+import { parseColors } from "../../../utils/functions";
+import {
+  resourceNames,
+  resourceTypes,
+} from "../../../store/constants/worldConfig";
 
 export const SinePanel = () => {
   const collectedResources = useGameStore((state) => state.collectedResources);
   const opacity = useGameStore(
     (state) => state.uiPanelsState.supportPanels.opacity,
   );
-  const parsedResourcesColors = useMemo(() => parseResourcesColors(), []);
+  const parsedResourcesColors = useMemo(() => parseColors(resourceTypes), []);
 
   const resourcePaths = useMemo(() => {
     return resourceNames.map((resourceName, index) => ({

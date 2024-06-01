@@ -1,5 +1,6 @@
 import { useGameStore } from "../../../store/store";
 import {
+  CHUNK_SIZE,
   GROUND_MAX_LEVEL,
   GROUND_MIN_LEVEL,
 } from "../../../store/constants/worldConfig";
@@ -20,8 +21,10 @@ export const LevelsIndicators = () => {
     ),
   );
 
-  const posWidthRange = activePosition.x * (100 / width) + 50;
-  const posDepthRange = activePosition.z * (100 / depth) + 50;
+  const posWidthRange =
+    activePosition.x * (CHUNK_SIZE / width) + CHUNK_SIZE / 2;
+  const posDepthRange =
+    activePosition.z * (CHUNK_SIZE / depth) + CHUNK_SIZE / 2;
 
   return (
     <div className=" mr-1" style={{ opacity }}>
@@ -43,7 +46,7 @@ export const LevelsIndicators = () => {
           <div
             className=" h-28 w-3 border border-uilines"
             style={{
-              background: `linear-gradient( to top, var(--color-uilines) 0%, var(--color-uilines) ${posDepthRange}%, rgba(255, 255, 255, 0) ${posDepthRange}%)`,
+              background: `linear-gradient( to top, var(--color-uilines) 0%, var(--color-uilines) ${posHeightRange}%, rgba(255, 255, 255, 0) ${posHeightRange}%)`,
             }}
           />
           <div className=" text-center font-mono text-2xs text-uitext">
@@ -55,7 +58,7 @@ export const LevelsIndicators = () => {
           <div
             className=" h-28 w-3 border border-uilines"
             style={{
-              background: `linear-gradient( to top, var(--color-uilines) 0%, var(--color-uilines) ${posHeightRange}%, rgba(255, 255, 255, 0) ${posHeightRange}%)`,
+              background: `linear-gradient( to top, var(--color-uilines) 0%, var(--color-uilines) ${posDepthRange}%, rgba(255, 255, 255, 0) ${posDepthRange}%)`,
             }}
           />
           <div className=" text-center font-mono text-2xs text-uitext">

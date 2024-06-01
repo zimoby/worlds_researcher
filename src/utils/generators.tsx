@@ -3,8 +3,6 @@ import { ArtifactT } from "../store/types";
 import { ArtifactType } from "../store/types";
 import { WorldParamsType, WeatherCondition, WorldState } from "../store/types";
 import {
-  ADJECTIVES,
-  ADJECTIVES_EXTRA,
   ARTIFACT_AMOUNT,
   ARTIFACT_CHUNK_RANGE,
   ARTIFACT_PROBABILITIES,
@@ -20,6 +18,10 @@ import {
   WORLD_SEED_LENGTH,
   WORLD_STATE_THRESHOLDS,
 } from "../store/constants/worldConfig";
+import {
+  ADJECTIVES,
+  ADJECTIVES_EXTRA,
+} from "../store/constants/textGeneratorConstants";
 
 const getRandomValue = ([min, max]: number[]) =>
   Math.floor(min + Math.random() * (max - min));

@@ -7,6 +7,7 @@ import {
   WorldStringParamT,
 } from "../../../store/types";
 import { BasicPanelWrapper } from "../BasicPanelWrapper";
+import { parseColors } from "../../../utils/functions";
 
 interface ParamProps {
   name: string;
@@ -42,6 +43,44 @@ const ParamComponent: React.FC<ParamProps> = ({ name, value, min, max }) => {
   );
 };
 
+interface Color {
+  color: [number, number, number];
+}
+
+interface ColorsArrayProps {
+  colors: Color[];
+}
+
+const ColorsArray: React.FC<ColorsArrayProps> = ({ colors }) => {
+  return (
+    <div className=" ml-2 flex flex-row items-center justify-center space-x-1">
+      {colors.map((color, index) => {
+        return (
+          <div
+            key={index}
+            className="size-3 rounded-full "
+            style={{
+              backgroundColor: `rgb(${color.color[0] * 255}, ${color.color[1] * 255}, ${
+                color.color[2] * 255
+              })`,
+            }}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+const paramNames: (keyof WorldParamsType)[] = [
+  "seed",
+  "worldState",
+  "temperature",
+  "humidity",
+  "windSpeed",
+  "pollution",
+  "radiation",
+];
+
 export const PlanetDataPanel = () => {
   const opacity = useGameStore(
     (state) => state.uiPanelsState.planetPanel.opacity,
@@ -50,43 +89,11 @@ export const PlanetDataPanel = () => {
   const weatherCondition = useGameStore((state) => state.weatherCondition);
   const terrainColors = useGameStore((state) => state.terrainColors);
 
-  const parseColors = useMemo(() => {
-    const colors = Object.keys(terrainColors).map((key) => {
-      return {
-        color: [
-          terrainColors[key].color.r,
-          terrainColors[key].color.g,
-          terrainColors[key].color.b,
-        ],
-      };
-    });
-
-    return colors;
-  }, [terrainColors]);
-
-  const parsedResourcesColors = useMemo(() => {
-    const resColors = Object.keys(resourceTypes).map((key) => {
-      return {
-        color: [
-          resourceTypes[key].color.r,
-          resourceTypes[key].color.g,
-          resourceTypes[key].color.b,
-        ],
-      };
-    });
-
-    return resColors;
-  }, []);
-
-  const paramNames: (keyof WorldParamsType)[] = [
-    "seed",
-    "worldState",
-    "temperature",
-    "humidity",
-    "windSpeed",
-    "pollution",
-    "radiation",
-  ];
+  const parsedTerrainColors = useMemo(
+    () => parseColors(terrainColors),
+    [terrainColors],
+  );
+  const parsedResourcesColors = useMemo(() => parseColors(resourceTypes), []);
 
   return (
     <BasicPanelWrapper
@@ -113,39 +120,11 @@ export const PlanetDataPanel = () => {
         <p className="list-selecting">Weather: {weatherCondition}</p>
         <div className="list-selecting flex flex-row justify-start">
           <p className="">Ground:</p>
-          <div className=" ml-2 flex flex-row items-center justify-center space-x-1">
-            {parseColors.map((color, index) => {
-              return (
-                <div
-                  key={index}
-                  className="size-3 rounded-full "
-                  style={{
-                    backgroundColor: `rgb(${color.color[0] * 255} ${color.color[1] * 255} ${
-                      color.color[2] * 255
-                    })`,
-                  }}
-                />
-              );
-            })}
-          </div>
+          <ColorsArray colors={parsedTerrainColors as Color[]} />
         </div>
         <div className="list-selecting flex flex-row justify-start">
           <p className="">Resources:</p>
-          <div className=" ml-2 flex flex-row items-center justify-center space-x-1">
-            {parsedResourcesColors.map((color, index) => {
-              return (
-                <div
-                  key={index}
-                  className="size-3 rounded-full "
-                  style={{
-                    backgroundColor: `rgb(${color.color[0] * 255} ${color.color[1] * 255} ${
-                      color.color[2] * 255
-                    })`,
-                  }}
-                />
-              );
-            })}
-          </div>
+          <ColorsArray colors={parsedResourcesColors as Color[]} />
         </div>
       </div>
     </BasicPanelWrapper>

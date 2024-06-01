@@ -1,4 +1,5 @@
 import { FlickeringEffect } from "../../effects/FlickeringEffectWrapper";
+import { CHUNK_SIZE } from "../../store/constants/worldConfig";
 import { useGameStore } from "../../store/store";
 import { LinearGridShader } from "./LinearGridShader1";
 
@@ -21,14 +22,14 @@ export const RulersFourSides = () => {
             position={[0, 0, -1]}
             sizeX={width}
             sizeY={2}
-            width={rulerGridY / (100 / width)}
+            width={rulerGridY / (CHUNK_SIZE / width)}
             depth={1}
           />
           <LinearGridShader
             position={[0, 0, 0]}
             sizeX={width}
             sizeY={5}
-            width={rulerGridY / (100 / width) / 2}
+            width={rulerGridY / (CHUNK_SIZE / width) / 2}
             depth={1}
           />
         </group>
@@ -37,14 +38,14 @@ export const RulersFourSides = () => {
             position={[0, 0, -1]}
             sizeX={width}
             sizeY={2}
-            width={rulerGridY / (100 / width)}
+            width={rulerGridY / (CHUNK_SIZE / width)}
             depth={1}
           />
           <LinearGridShader
             position={[0, 0, 0]}
             sizeX={width}
             sizeY={5}
-            width={rulerGridY / (100 / width) / 2}
+            width={rulerGridY / (CHUNK_SIZE / width) / 2}
             depth={1}
           />
         </group>
@@ -53,14 +54,14 @@ export const RulersFourSides = () => {
             position={[0, 0, -1]}
             sizeX={depth}
             sizeY={2}
-            width={rulerGridY / (100 / depth)}
+            width={rulerGridY / (CHUNK_SIZE / depth)}
             depth={1}
           />
           <LinearGridShader
             position={[0, 0, 0]}
             sizeX={depth}
             sizeY={5}
-            width={rulerGridY / (100 / depth) / 2}
+            width={rulerGridY / (CHUNK_SIZE / depth) / 2}
             depth={1}
           />
         </group>
@@ -69,14 +70,14 @@ export const RulersFourSides = () => {
             position={[0, 0, -1]}
             sizeX={depth}
             sizeY={2}
-            width={rulerGridY / (100 / depth)}
+            width={rulerGridY / (CHUNK_SIZE / depth)}
             depth={1}
           />
           <LinearGridShader
             position={[0, 0, 0]}
             sizeX={depth}
             sizeY={5}
-            width={rulerGridY / (100 / depth) / 2}
+            width={rulerGridY / (CHUNK_SIZE / depth) / 2}
             depth={1}
           />
         </group>

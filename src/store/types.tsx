@@ -181,3 +181,10 @@ export interface LogWithIdT {
   id: string;
   text: string;
 }
+
+export interface ColorRGB {
+  color: [number, number, number];
+}
+export interface ColorsArrayProps {
+  colors: ColorRGB[];
+}

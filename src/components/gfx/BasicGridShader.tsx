@@ -11,6 +11,7 @@ import { useGameStore } from "../../store/store";
 import { useFrame } from "@react-three/fiber";
 import { useCalculateDeltas } from "../../utils/functions";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
+import { CHUNK_SIZE } from "../../store/constants/worldConfig";
 
 const vertexShader = `
   varying vec2 vUv;
@@ -82,8 +83,8 @@ export const BasicGridShader = ({
     const planeGeometry = new PlaneGeometry(width, depth, 1, 1);
     const planeMaterial = new ShaderMaterial({
       uniforms: {
-        mapWidth: { value: width / 100 },
-        mapDepth: { value: depth / 100 },
+        mapWidth: { value: width / CHUNK_SIZE },
+        mapDepth: { value: depth / CHUNK_SIZE },
         chunkSize: { value: gridConfig.chunkSize },
         offset: { value: new Vector2(0, 0) },
         subGrids: { value: gridConfig.subGrids },

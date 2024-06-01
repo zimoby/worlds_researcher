@@ -6,7 +6,12 @@ import {
 } from "three";
 import { MapDetailesType, TerrainTypesT } from "../../store/types";
 import { ResourceType } from "../../store/types";
-import { resourceTypes } from "../../store/constants/worldConfig";
+import {
+  CHUNK_SIZE,
+  GROUND_BASELINE_OFFSET,
+  GROUND_HEIGHT_MULTIPLIER,
+  resourceTypes,
+} from "../../store/constants/worldConfig";
 import { terrainTypes } from "../../store/constants/worldConfig";
 import { NoiseFunction2D } from "simplex-noise";
 import { droneScanAreaValues } from "../../store/constants/worldConfig";
@@ -108,21 +113,21 @@ const generateHeight = (
   mapDetailes: MapDetailesType,
 ) => {
   const scaleCorrection = scale * 5;
-  const depthOffCorrection = depth - 100;
+  const depthOffCorrection = (depth - CHUNK_SIZE) / 2;
   const largeScale =
     noise2D(
       (x + offsetX) / scaleCorrection,
-      (y + offsetY - depthOffCorrection / 2) / scaleCorrection,
+      (y + offsetY - depthOffCorrection) / scaleCorrection,
     ) * mapDetailes[0];
   const mediumScale =
     noise2D(
       (x + offsetX) / (scaleCorrection * 0.5),
-      (y + offsetY - depthOffCorrection / 2) / (scaleCorrection * 0.5),
+      (y + offsetY - depthOffCorrection) / (scaleCorrection * 0.5),
     ) * mapDetailes[1];
   const smallScale =
     noise2D(
       (x + offsetX) / (scaleCorrection * 0.25),
-      (y + offsetY - depthOffCorrection / 2) / (scaleCorrection * 0.25),
+      (y + offsetY - depthOffCorrection) / (scaleCorrection * 0.25),
     ) * mapDetailes[2];
   const combined = largeScale + mediumScale + smallScale;
 
@@ -132,9 +137,6 @@ const generateHeight = (
     return combined;
   }
 };
-
-const heightMultiplier = 20;
-const baseLineOffset = -5;
 
 export const generateTerrain = (
   width: number,
@@ -170,7 +172,7 @@ export const generateTerrain = (
         mapDetailes,
       );
       const y = Math.max(
-        heightNoise * heightMultiplier + baseLineOffset,
+        heightNoise * GROUND_HEIGHT_MULTIPLIER + GROUND_BASELINE_OFFSET,
         GROUND_MIN_LEVEL,
       );
       const z = i * resolution - depth / 2;

@@ -1,8 +1,14 @@
 // worldConfig.js
 
 import { Color } from "three";
-import { CostsT, ResourceName, UpgradeCosts, WorldStateThresholds } from "../types";
+import {
+  CostsT,
+  ResourceName,
+  UpgradeCosts,
+  WorldStateThresholds,
+} from "../types";
 import { TerrainTypesT } from "../types";
+import { DEV_MODE } from "./appConstants";
 
 // GAME TIMING
 
@@ -13,7 +19,6 @@ export const WEATHER_UPDATE_INTERVAL = 5000;
 // WORLD
 
 export const CHUNK_SIZE = 100;
-
 export const WORLD_SEED_LENGTH = 7;
 
 export const TEMPERATURE_RANGE = [-50, 100];
@@ -52,109 +57,12 @@ export const ARTIFACT_AMOUNT = 10;
 export const ARTIFACT_CHUNK_RANGE = 10;
 export const GET_ARTIFACT_RADIUS = 20;
 
-export const ADJECTIVES = [
-  "Ancient",
-  "Forgotten",
-  "Mysterious",
-  "Magical",
-  "Enchanted",
-  "Cursed",
-  "Blessed",
-  "Divine",
-  "Sacred",
-  "Holy",
-  "Unholy",
-  "Dark",
-  "Light",
-  "Eternal",
-  "Infinite",
-  "Infernal",
-  "Celestial",
-  "Abyssal",
-  "Eldritch",
-  "Arcane",
-  "Mystic",
-  "Mythical",
-  "Legendary",
-];
-
-export const ADJECTIVES_EXTRA = [
-  "Golden",
-  "Silver",
-  "Bronze",
-  "Crystal",
-  "Sapphire",
-  "Ruby",
-  "Emerald",
-  "Diamond",
-  "Amethyst",
-  "Topaz",
-  "Opal",
-  "Pearl",
-  "Obsidian",
-  "Onyx",
-  "Jade",
-  "Ivory",
-  "Platinum",
-  "Titanium",
-  "Copper",
-  "Iron",
-  "Steel",
-  "Adamantium",
-  "Mithril",
-  "Orichalcum",
-  "Plutonium",
-  "Uranium",
-  "Neptunium",
-  "Mercury",
-  "Lead",
-  "Tin",
-  "Aluminium",
-  "Cobalt",
-  "Nickel",
-  "Zinc",
-  "Oxygen",
-  "Nitrogen",
-  "Hydrogen",
-  "Helium",
-  "Lithium",
-  "Beryllium",
-  "Boron",
-  "Sodium",
-  "Potassium",
-  "Calcium",
-  "Scandium",
-  "Titanium",
-  "Vanadium",
-  "Chromium",
-  "Manganese",
-  "Iron",
-  "Cobalt",
-  "Nickel",
-  "Copper",
-  "Zinc",
-  "Tin",
-  "Antimony",
-  "Tellurium",
-  "Iodine",
-  "Xenon",
-  "Caesium",
-  "Barium",
-  "Lanthanum",
-  "Cerium",
-  "Praseodymium",
-  "Neodymium",
-  "Promethium",
-  "Samarium",
-  "Europium",
-  "Gadolinium",
-  "Terbium",
-];
-
 // TERRAIN
 
 export const GROUND_MIN_LEVEL = -10;
 export const GROUND_MAX_LEVEL = 20;
+export const GROUND_HEIGHT_MULTIPLIER = 20;
+export const GROUND_BASELINE_OFFSET = -5;
 
 export const TERRAIN_COLORS = {
   water: { level: GROUND_MIN_LEVEL + 1 },
@@ -165,10 +73,10 @@ export const TERRAIN_COLORS = {
 };
 
 export const INITIAL_RESOURCES = {
-  Water: 900,
-  Metals: 900,
-  "Rare Elements": 900,
-  Hydrocarbons: 900,
+  Water: DEV_MODE ? 900 : 0,
+  Metals: DEV_MODE ? 900 : 0,
+  "Rare Elements": DEV_MODE ? 900 : 0,
+  Hydrocarbons: DEV_MODE ? 900 : 0,
 };
 
 export const classicTerrainPalette = {
@@ -208,7 +116,15 @@ export const BEACONS_RANGE = 20;
 
 // RESOURCES
 
-export const resourceNames = ["Water", "Metals", "Rare Elements", "Hydrocarbons"];
+export const INITIAL_ENERGY = 1000;
+export const INITIAL_ENERGY_DEVMODE = 1000000;
+
+export const resourceNames = [
+  "Water",
+  "Metals",
+  "Rare Elements",
+  "Hydrocarbons",
+];
 
 export const resourceTypes: Record<
   ResourceName,
@@ -251,16 +167,32 @@ export const beaconsArmorNames = ["None", "Light", "Medium", "Heavy"];
 export const beaconsArmorColors = ["#ffffff", "#ff0000", "#00ff00", "#00ffff"];
 export const armorDestructionModifiers = [1, 0.75, 0.5, 0.25];
 
-export const resourceCollectionNames = ["None", "Basic", "Advanced", "Elite"];
+export const resourceCollectionNames = ["None", "Basic", "Advanced", "Elite"]; // Surface Mining - Deep Drilling - Laser Extraction
 export const resourceCollectionMultipliers = [1, 2, 5, 10];
 
-export const droneScanNames = ["Basic", "Advanced", "Mega", "Elite", "Ultimate"];
+export const droneScanNames = [
+  "Basic",
+  "Advanced",
+  "Mega",
+  "Elite",
+  "Ultimate",
+];
 export const droneScanAreaValues = [20, 30, 40, 50, 60];
 export const upgradeCosts = {
   resourceCollection: [
     { Water: 100, Metals: 50, "Rare Elements": 20, Energy: 80 } as UpgradeCosts,
-    { Water: 2, Metals: 2, "Rare Elements": 2, Energy: 800 } as UpgradeCosts,
-    { Water: 2, Metals: 2, "Rare Elements": 2, Energy: 8000 } as UpgradeCosts,
+    {
+      Water: 200,
+      Metals: 100,
+      "Rare Elements": 40,
+      Energy: 800,
+    } as UpgradeCosts,
+    {
+      Water: 400,
+      Metals: 200,
+      "Rare Elements": 80,
+      Energy: 8000,
+    } as UpgradeCosts,
   ],
   beaconsArmor: [
     {

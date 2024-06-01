@@ -13,7 +13,12 @@ import {
   TERRAIN_COLORS,
 } from "../constants/worldConfig";
 import { terrainTypes } from "../constants/worldConfig";
-import { WorldParamsType, ArtifactsCollectedT, TerrainTypesT, WeatherCondition } from "../types";
+import {
+  WorldParamsType,
+  ArtifactsCollectedT,
+  TerrainTypesT,
+  WeatherCondition,
+} from "../types";
 import { ArtifactType } from "../types";
 import { BeaconType, ArtifactT } from "../types";
 

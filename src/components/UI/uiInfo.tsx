@@ -19,7 +19,6 @@ import { EmptyGrowPanel } from "../gfx/EmptyPanel";
 import { CostsPanel } from "./Panels/CostsPanel";
 import { FlyToNewWorld } from "./Elements/FlyToNewWorldButton";
 import { CollectedAftefacts } from "./Panels/CollectedAftefacts";
-import { SettingsButton } from "./Elements/SettingsButton";
 import { ArtifactsInfo } from "../artifacts/ArtifactsInfo";
 
 import { AboutModal } from "./Modals/AboutModal";
@@ -28,10 +27,9 @@ import { useEffect } from "react";
 import { ArtefactsModal } from "./Modals/ArtifactsModal";
 import { MapModal } from "./Modals/MapModal";
 import { DronePanel } from "./Panels/DronePanel";
-import { AboutButton } from "./Elements/AboutButton";
-import { LogOfChanges } from "./Elements/LogOfChangesButton";
 import ChangeLogModal from "./Modals/ChangeLogModal";
 import { START_DELAY } from "../../store/constants/worldConfig";
+import { OpenModalButton } from "./Elements/ButtonTemplate";
 
 export const UiInfo = () => {
   const animationFirstStage = useGameStore(
@@ -99,10 +97,17 @@ export const UiInfo = () => {
           styles={{ height: "calc(100vh - 9.26rem)" }}
         >
           <CorpLogoPanel />
-          <AboutButton />
-          <SettingsButton />
+          <OpenModalButton modalName="showAboutModal" name="About" />
+          <OpenModalButton
+            modalName="showSettingsModal"
+            name="Settings"
+            opacityName="settingsButton"
+          />
           <FlyToNewWorld />
-          <LogOfChanges />
+          <OpenModalButton
+            modalName="showChangeLogModal"
+            name="Log of Changes"
+          />
           <SystemControls />
           <CostsPanel />
           <EmptyGrowPanel />

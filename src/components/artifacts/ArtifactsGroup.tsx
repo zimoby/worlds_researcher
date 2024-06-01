@@ -5,6 +5,7 @@ import { isOutOfBound, useCalculateDeltas } from "../../utils/functions";
 import { createRef, useMemo, useRef } from "react";
 import { Color, Group, TorusKnotGeometry } from "three";
 import { useIncreasingSpeed } from "../../effects/IncreaseSceneSpeed";
+import { CHUNK_SIZE } from "../../store/constants/worldConfig";
 
 const beaconHeight = 10;
 
@@ -131,9 +132,9 @@ export const ArtifactsGroup = () => {
         <group
           key={artifact.id}
           position={[
-            artifact.x + artifact.chunkX * 100,
+            artifact.x + artifact.chunkX * CHUNK_SIZE,
             artifact.y + 1,
-            artifact.z + artifact.chunkY * 100,
+            artifact.z + artifact.chunkY * CHUNK_SIZE,
           ]}
           ref={artifactRefs.current[index]}
         >

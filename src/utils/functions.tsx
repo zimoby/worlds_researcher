@@ -1,7 +1,6 @@
 import { MutableRefObject, useEffect } from "react";
 import { useGameStore } from "../store/store";
 import { DEV_MODE } from "../store/constants/appConstants";
-import { resourceTypes } from "../store/constants/worldConfig";
 import { ChunkType } from "../store/types";
 
 export const generateUniqueId = () => `${Date.now()}-${Math.random()}`;
@@ -163,16 +162,15 @@ export const numberSimplified = (number: number) => {
   if (number < 1000000000) return `${(number / 1000000).toFixed(1)}M`;
   return `${(number / 1000000000).toFixed(1)}B`;
 };
-export const parseResourcesColors = (): { color: number[] }[] => {
-  const resColors = Object.keys(resourceTypes).map((key) => {
-    return {
-      color: [
-        resourceTypes[key].color.r,
-        resourceTypes[key].color.g,
-        resourceTypes[key].color.b,
-      ],
-    };
-  });
 
-  return resColors;
+export const parseColors = (
+  colorsObj: Record<string, { color: { r: number; g: number; b: number } }>,
+): { color: number[] }[] => {
+  return Object.keys(colorsObj).map((key) => ({
+    color: [
+      colorsObj[key].color.r,
+      colorsObj[key].color.g,
+      colorsObj[key].color.b,
+    ],
+  }));
 };

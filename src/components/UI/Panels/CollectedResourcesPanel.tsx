@@ -1,8 +1,8 @@
 import { useMemo, useState } from "react";
 import { useGameStore } from "../../../store/store";
-import { numberSimplified } from "../../../utils/functions";
+import { numberSimplified, parseColors } from "../../../utils/functions";
 import { BasicPanelWrapper } from "../BasicPanelWrapper";
-import { parseResourcesColors } from "../../../utils/functions";
+import { resourceTypes } from "../../../store/constants/worldConfig";
 
 export const CollectedResourcesPanel = () => {
   const opacity = useGameStore(
@@ -11,9 +11,7 @@ export const CollectedResourcesPanel = () => {
   const collectedResources = useGameStore((state) => state.collectedResources);
   const [hoveredResource, setHoveredResource] = useState<string | null>(null);
 
-  const parsedResourcesColors = useMemo(() => {
-    return parseResourcesColors();
-  }, []);
+  const parsedResourcesColors = useMemo(() => parseColors(resourceTypes), []);
 
   return (
     <BasicPanelWrapper titleText="Collected Resources:" opacity={opacity}>

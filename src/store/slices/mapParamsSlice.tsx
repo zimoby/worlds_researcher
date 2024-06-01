@@ -1,6 +1,12 @@
 import { StateCreator } from "zustand";
 import { GameStoreState } from "../store";
-import { ChunkType, GridConfig, MapParams, Offset, ResourceType } from "../types";
+import {
+  ChunkType,
+  GridConfig,
+  MapParams,
+  Offset,
+  ResourceType,
+} from "../types";
 
 export interface MapParamsSlice {
   gridConfig: GridConfig;
@@ -22,7 +28,7 @@ export interface MapParamsSlice {
   addLocationToHistory: (location: ChunkType) => void;
 
   activePosition: { x: number; y: number; z: number };
-  
+
   setMapAnimationState: (state: "idle" | "shrinking" | "enlarging") => void;
   updateMapSize: (value: number) => void;
   updateMapParam: (paramName: string, value: unknown) => void;

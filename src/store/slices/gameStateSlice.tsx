@@ -44,16 +44,19 @@ export interface GameStateSlice {
 
   updateStoreProperty: (paramName: string, value: unknown) => void;
   updateVariableInLocalStorage: (variableName: string, value: boolean) => void;
-  
+
   addLog: (log: string) => void;
   addEventLog: (eventName: string) => void;
 }
 
-export const createGameStateSlice: StateCreator<GameStoreState, [], [], GameStateSlice> = (
-  set,
-  get
-) => ({
-  disableAnimations: localStorage.getItem(SETTING_DISABLE_ANIMATIONS) === "true",
+export const createGameStateSlice: StateCreator<
+  GameStoreState,
+  [],
+  [],
+  GameStateSlice
+> = (set, get) => ({
+  disableAnimations:
+    localStorage.getItem(SETTING_DISABLE_ANIMATIONS) === "true",
   disableSounds: localStorage.getItem(SETTING_DISABLE_SOUNDS) === "true",
   disableMusic: localStorage.getItem(SETTING_DISABLE_MUSIC) === "true",
 
@@ -100,7 +103,6 @@ export const createGameStateSlice: StateCreator<GameStoreState, [], [], GameStat
 
   logs: [],
   eventsLog: [],
-  
 
   updateStoreProperty: (paramName, value) => {
     set(() => ({ [paramName]: value }));

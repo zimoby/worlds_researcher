@@ -10,9 +10,7 @@ export const useProcessBeacons = () => {
   const addLog = useGameStore((state) => state.addLog);
   const beacons = useGameStore((state) => state.beacons);
   const weatherCondition = useGameStore((state) => state.weatherCondition);
-  const decreaseEnergy = useGameStore(
-    (state) => state.decreaseEnergy,
-  );
+  const decreaseEnergy = useGameStore((state) => state.decreaseEnergy);
   const energy = useGameStore((state) => state.energy);
   const beaconsLimit = useGameStore((state) => state.beaconsLimit);
 

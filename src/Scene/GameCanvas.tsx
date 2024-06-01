@@ -15,6 +15,7 @@ import { Line } from "../components/gfx/Line";
 import { Euler } from "three";
 import { CenterScreenPanel } from "../components/UI/Panels/CenterScreenPanel";
 import { ArtifactsPlanesIndicators } from "../components/artifacts/ArtifactsIndicators";
+import { CHUNK_SIZE } from "../store/constants/worldConfig";
 
 export const GameCanvas = () => {
   const firstStart = useGameStore((state) => state.firstStart);
@@ -69,8 +70,11 @@ export const GameCanvas = () => {
                 randomFrequency={0.008}
                 duration={50}
               >
-                <Line width={100} />
-                <Line width={100} rotation={new Euler(0, Math.PI / 2, 0)} />
+                <Line width={CHUNK_SIZE} />
+                <Line
+                  width={CHUNK_SIZE}
+                  rotation={new Euler(0, Math.PI / 2, 0)}
+                />
                 <ChunkGrid position={[0, -1, 0]} sizeExtend={30} />
               </FlickeringEffect>
             )}

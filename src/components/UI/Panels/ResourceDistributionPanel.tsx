@@ -53,25 +53,3 @@ export const BeaconManagementPanel = () => {
     </BasicPanelWrapper>
   );
 };
-
-export const ResourceExtractionPanel = () => {
-  const extractionMethods = [
-    { id: 1, name: "Surface Mining", time: 30, energyCost: 100 },
-    { id: 2, name: "Deep Drilling", time: 60, energyCost: 200 },
-    { id: 3, name: "Laser Extraction", time: 45, energyCost: 150 },
-  ];
-
-  return (
-    <BasicPanelWrapper titleText="Resource Extraction">
-      {extractionMethods.map((method) => (
-        <div key={method.id} className="mb-2 flex items-center justify-between">
-          <span>{method.name}</span>
-          <div>
-            <span>Time: {method.time}s</span>
-            <span>Energy: {method.energyCost}</span>
-          </div>
-        </div>
-      ))}
-    </BasicPanelWrapper>
-  );
-};

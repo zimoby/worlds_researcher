@@ -1,7 +1,14 @@
 import { StateCreator } from "zustand";
 import { GameStoreState } from "../store";
 import { DEV_MODE } from "../constants/appConstants";
-import { resourceTypes, INITIAL_RESOURCES, COSTS } from "../constants/worldConfig";
+import {
+  resourceTypes,
+  INITIAL_RESOURCES,
+  COSTS,
+  INITIAL_ENERGY,
+  INITIAL_ENERGY_DEVMODE,
+  CHUNK_SIZE,
+} from "../constants/worldConfig";
 import { resourceCollectionMultipliers } from "../constants/worldConfig";
 import { CollectedResources } from "../types";
 
@@ -12,11 +19,13 @@ export interface ResourcesSlice {
   updateResourcesAndEnergy: () => void;
 }
 
-export const createResourcesSlice: StateCreator<GameStoreState, [], [], ResourcesSlice> = (
-  set,
-  get
-) => ({
-  energy: DEV_MODE ? 20000 : 1000,
+export const createResourcesSlice: StateCreator<
+  GameStoreState,
+  [],
+  [],
+  ResourcesSlice
+> = (set, get) => ({
+  energy: DEV_MODE ? INITIAL_ENERGY_DEVMODE : INITIAL_ENERGY,
 
   decreaseEnergy: (points: number) => {
     set((state) => {
@@ -47,7 +56,7 @@ export const createResourcesSlice: StateCreator<GameStoreState, [], [], Resource
           1 * resourceCollectionMultipliers[beacon.collectionLevel];
         return resources;
       },
-      { ...collectedResources }
+      { ...collectedResources },
     );
 
     const pointsEarned = beacons.reduce(
@@ -55,25 +64,27 @@ export const createResourcesSlice: StateCreator<GameStoreState, [], [], Resource
         total +
         resourceTypes[beacon.resource].score *
           resourceCollectionMultipliers[beacon.collectionLevel],
-      0
+      0,
     );
     let newPlayerPoints = energy + pointsEarned;
 
     const combinedSpeed = dynamicSpeed * mapParams.speed;
 
     if (combinedSpeed > 1) {
-      newPlayerPoints -= dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value;
+      newPlayerPoints -=
+        dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value;
       addEventLog(
-        `High Speed. -${dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value} energy`
+        `High Speed. -${dynamicSpeed * mapParams.speed * COSTS.increaseSpeed.value} energy`,
       );
     }
 
     if (
-      (mapParams.width > 100 || mapParams.depth > 100) &&
+      (mapParams.width > CHUNK_SIZE || mapParams.depth > CHUNK_SIZE) &&
       animationFirstStage &&
       mapAnimationState === "idle"
     ) {
-      const extraMapSize = mapParams.width - 100 + (mapParams.depth - 100);
+      const extraMapSize =
+        mapParams.width - CHUNK_SIZE + (mapParams.depth - CHUNK_SIZE);
       const extraCosts = Math.round(extraMapSize * COSTS.increaseMapSize.value);
       newPlayerPoints -= extraCosts;
       addEventLog(`Extra Map Scan. -${extraCosts} energy`);

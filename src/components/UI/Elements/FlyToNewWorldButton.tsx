@@ -8,9 +8,7 @@ export const FlyToNewWorld = () => {
   const animationFirstStage = useGameStore(
     (state) => state.animationFirstStage,
   );
-  const decreaseEnergy = useGameStore(
-    (state) => state.decreaseEnergy,
-  );
+  const decreaseEnergy = useGameStore((state) => state.decreaseEnergy);
   const energy = useGameStore((state) => state.energy);
   const opacity = useGameStore(
     (state) => state.uiPanelsState.newWorldButton.opacity,
