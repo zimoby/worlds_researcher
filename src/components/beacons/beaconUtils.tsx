@@ -3,9 +3,9 @@ import { BEACONS_RANGE, useGameStore } from "../../store/store";
 import {
   BeaconType,
   ResourceType,
-  SEVERE_PROB_DESTROING,
 } from "../../store/worldParamsSlice";
 import { armorDestructionModifiers } from "../../store/upgradeStateSlice";
+import { WEATHER_PROBABILITIES } from "../../store/worldConfig";
 
 export const useProcessBeacons = () => {
   const addLog = useGameStore((state) => state.addLog);
@@ -117,7 +117,7 @@ export const useProcessBeacons = () => {
       beacons.forEach((beacon) => {
         const armorLevel = beacon.armor;
         const destructionProbability =
-          SEVERE_PROB_DESTROING * armorDestructionModifiers[armorLevel];
+          WEATHER_PROBABILITIES[2] * armorDestructionModifiers[armorLevel];
         if (Math.random() < destructionProbability) {
           destroyedBeacons.push(beacon);
         }

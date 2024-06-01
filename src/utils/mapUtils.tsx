@@ -6,18 +6,14 @@ export const getIntersection = (
   mesh: Mesh | null,
   camera: Camera,
 ) => {
+  if (!event || !mesh) return [];
+
   const mouse = new Vector2();
-  if (!event) return [];
   mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
   mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
   raycaster.setFromCamera(mouse, camera);
-  if (mesh) {
-    const intersects = raycaster.intersectObject(mesh);
-    return intersects;
-  } else {
-    return [];
-  }
+  return raycaster.intersectObject(mesh);
 };
 
 export const keyToVector: Record<string, { x: number; y: number }> = {

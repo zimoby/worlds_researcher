@@ -7,13 +7,13 @@ import {
 import {
   MapDetailesType,
   TerrainTypesT,
-  minLevel,
 } from "../../store/worldParamsSlice";
 import { ResourceType } from "../../store/worldParamsSlice";
 import { resourceTypes } from "../../store/worldParamsSlice";
 import { terrainTypes } from "../../store/worldParamsSlice";
 import { NoiseFunction2D } from "simplex-noise";
 import { droneScanAreaValues } from "../../store/upgradeStateSlice";
+import { GROUND_MIN_LEVEL } from "../../store/worldConfig";
 
 const updateBufferAttribute = (
   geometry: BufferGeometry<NormalBufferAttributes>,
@@ -174,7 +174,7 @@ export const generateTerrain = (
       );
       const y = Math.max(
         heightNoise * heightMultiplier + baseLineOffset,
-        minLevel,
+        GROUND_MIN_LEVEL,
       );
       const z = i * resolution - depth / 2;
       const idx = (i * (widthCount + 1) + j) * 3;

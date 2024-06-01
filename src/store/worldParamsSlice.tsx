@@ -1,4 +1,5 @@
 import { StateCreator } from "zustand";
+// import { immer } from "zustand/middleware/immer";
 import {
   generateArtifacts,
   generateRandomColor,
@@ -6,8 +7,8 @@ import {
 } from "../utils/generators";
 import { GameStoreState } from "./store";
 import { Color } from "three";
+import { ARTIFACT_AMOUNT, GROUND_MIN_LEVEL, INITIAL_BEACONS, INITIAL_RESOURCES, TERRAIN_COLORS } from "./worldConfig";
 
-export const minLevel = -10;
 export const maxLevel = 20;
 
 export type TerrainType = "water" | "grass" | "dirt" | "snow" | "default";
@@ -77,7 +78,7 @@ const classicTerrainPalette = {
 export const terrainTypes: TerrainTypesT = {
   water: {
     color: classicTerrainPalette.water,
-    level: minLevel + 1,
+    level: GROUND_MIN_LEVEL + 1,
   },
   grass: {
     color: classicTerrainPalette.grass,
@@ -156,8 +157,6 @@ export const parseResourcesColors = (): { color: number[] }[] => {
   return resColors;
 };
 
-export const SEVERE_PROB_DESTROING = 0.2;
-
 export type ArtifactType = "usual" | "rare" | "legendary";
 
 export interface BeaconType {
@@ -207,8 +206,6 @@ export interface WorldParamsSlice {
   addToArtifactsArray: (artifact: ArtifactT) => void;
 }
 
-export const artifactAmount = 10;
-
 export const createWorldParamsSlice: StateCreator<
   GameStoreState,
   [],
@@ -216,7 +213,7 @@ export const createWorldParamsSlice: StateCreator<
   WorldParamsSlice
 > = (set, get) => ({
   beacons: [],
-  beaconsLimit: 10,
+  beaconsLimit: INITIAL_BEACONS,
 
   increaseBeconsLimit: () => {
     set((state) => {
@@ -234,7 +231,7 @@ export const createWorldParamsSlice: StateCreator<
     });
   },
 
-  artifacts: generateArtifacts({ amount: artifactAmount }),
+  artifacts: generateArtifacts({ amount: ARTIFACT_AMOUNT }),
   artifactSelected: "",
   artifactsCollectedByTypes: {
     usual: 0,
@@ -268,11 +265,11 @@ export const createWorldParamsSlice: StateCreator<
   worldParams: generateWorld(),
   regenerateWorld: () => {
     const newTerrainColors = {
-      water: { color: generateRandomColor(), level: minLevel + 1 },
-      grass: { color: generateRandomColor(), level: 0 },
-      dirt: { color: generateRandomColor(), level: 5 },
-      snow: { color: generateRandomColor(), level: 10 },
-      default: { color: new Color(0xffffff), level: 0 },
+      water: { color: generateRandomColor(), level: TERRAIN_COLORS.water.level },
+      grass: { color: generateRandomColor(), level: TERRAIN_COLORS.grass.level },
+      dirt: { color: generateRandomColor(), level: TERRAIN_COLORS.dirt.level },
+      snow: { color: generateRandomColor(), level: TERRAIN_COLORS.snow.level },
+      default: { ...TERRAIN_COLORS.default },
     };
 
     const newWorldParams = generateWorld();
@@ -281,7 +278,7 @@ export const createWorldParamsSlice: StateCreator<
       worldParams: newWorldParams,
       terrainColors: newTerrainColors,
       artifacts: generateArtifacts({
-        amount: artifactAmount,
+        amount: ARTIFACT_AMOUNT,
         worldId: newWorldParams.seed.value,
       }),
       beacons: [],
@@ -289,12 +286,7 @@ export const createWorldParamsSlice: StateCreator<
       currentLocation: { x: 0, y: 0 },
       locationsHistory: [{ x: 0, y: 0 }],
 
-      collectedResources: {
-        Water: 900,
-        Metals: 900,
-        "Rare Elements": 900,
-        Hydrocarbons: 900,
-      },
+      collectedResources: { ...INITIAL_RESOURCES},
       message: "",
       weatherCondition: "Mild",
     });
@@ -311,3 +303,4 @@ export const createWorldParamsSlice: StateCreator<
     }
   },
 });
+

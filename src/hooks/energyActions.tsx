@@ -7,7 +7,6 @@ export const useEnergyActions = () => {
   const updateMapSize = useGameStore((state) => state.updateMapSize);
 
   useEffect(() => {
-    // console.log("useEnergyActions");
     if ((width > 100 || depth > 100) && energy <= 0) {
       updateMapSize(100);
     }

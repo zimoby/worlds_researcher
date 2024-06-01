@@ -7,21 +7,15 @@ import { useGameStore } from "./store/store";
 import StartScreen from "./Scene/startScreen";
 
 import { useRunBgMusic, useSoundSystem } from "./hooks/soundSystem";
-import { useEffect } from "react";
 import { useEnergyActions } from "./hooks/energyActions";
 import { useAutoPilot } from "./hooks/autoPilot";
+import { useInitializeGame } from "./hooks/useInitializeGame";
 
 const App = () => {
   const startScreen = useGameStore((state) => state.startScreen);
   const firstStart = useGameStore((state) => state.firstStart);
-  const setColors = useGameStore((state) => state.setColors);
-  const colors = useGameStore((state) => state.colors);
-  const regenerateWorld = useGameStore((state) => state.regenerateWorld);
 
-  useEffect(() => {
-    setColors(colors);
-  }, [colors, setColors]);
-
+  useInitializeGame();
   useInitInfo();
   useCalculateResources();
   useGameLoop();
@@ -29,12 +23,6 @@ const App = () => {
   useRunBgMusic();
   useEnergyActions();
   useAutoPilot();
-
-  useEffect(() => {
-    if (firstStart) {
-      regenerateWorld();
-    }
-  }, [firstStart, regenerateWorld]);
 
   return (
     <>

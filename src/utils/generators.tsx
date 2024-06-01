@@ -1,272 +1,123 @@
 import { Color } from "three";
+import { WorldParamsType, ArtifactT, ArtifactType, WeatherCondition, WorldState } from "../store/worldParamsSlice";
 import {
-  ArtifactT,
-  ArtifactType,
-  WeatherCondition,
-  WorldState,
-} from "../store/worldParamsSlice";
-import { WorldParamsType } from "../store/worldParamsSlice";
+  ADJECTIVES,
+  ADJECTIVES_EXTRA,
+  ARTIFACT_AMOUNT,
+  ARTIFACT_PROBABILITIES,
+  DETAIL_RANGE,
+  HUMIDITY_RANGE,
+  POLLUTION_RANGE,
+  RADIATION_RANGE,
+  TEMPERATURE_RANGE,
+  WEATHER_NAMES,
+  WEATHER_PROBABILITIES,
+  WIND_SPEED_RANGE,
+  WORLD_STATE_THRESHOLDS,
+} from "../store/worldConfig";
+
+const getRandomValue = ([min, max]: number[]) => Math.floor(min + Math.random() * (max - min));
 
 export const generateWeather = (): WeatherCondition => {
   const randomValue = Math.random();
-  if (randomValue < 0.7) {
-    return "Mild";
-  } else if (randomValue < 0.9) {
-    return "Moderate";
-  } else {
-    return "Severe";
+  let cumulativeProbability = 0;
+
+  for (let i = 0; i < WEATHER_NAMES.length; i++) {
+    cumulativeProbability += WEATHER_PROBABILITIES[i];
+    if (randomValue < cumulativeProbability) {
+      return WEATHER_NAMES[i] as WeatherCondition;
+    }
   }
+
+  return WEATHER_NAMES[0] as WeatherCondition;
 };
 
 export const generateWorld = (): WorldParamsType => {
   const worldSeed = Math.random().toString(36).substring(7);
-  const worldName = "";
-  const temperature = Math.floor(-50 + Math.random() * 150);
-  const humidity = Math.floor(Math.random() * 100);
-  const windSpeed = Math.floor(Math.random() * 200);
-  const pollution = Math.floor(Math.random() * 500);
-  const radiation = Math.floor(Math.random() * 1000);
+  const temperature = getRandomValue(TEMPERATURE_RANGE);
+  const humidity = getRandomValue(HUMIDITY_RANGE);
+  const windSpeed = getRandomValue(WIND_SPEED_RANGE);
+  const pollution = getRandomValue(POLLUTION_RANGE);
+  const radiation = getRandomValue(RADIATION_RANGE);
   const weatherCondition = generateWeather();
 
-  const largeDetailes = Math.random() * 0.8 + 0.1;
-  const mediumDetailes = Math.random() * 0.8 + 0.1;
-  const smallDetailes = Math.random() * 0.8 + 0.1;
+  const [largeDetailes, mediumDetailes, smallDetailes] = Array(3)
+    .fill(null)
+    .map(() => Math.random() * (DETAIL_RANGE[1] - DETAIL_RANGE[0]) + DETAIL_RANGE[0]);
 
-  let worldState = "Safe";
-  if (pollution > 300 || radiation > 300) {
-    worldState = "Hazardous";
-  } else if (windSpeed > 100) {
-    worldState = "Stormy";
-  } else if (temperature > 50 || temperature < -20) {
-    worldState = "Extreme temperature";
-  } else if (radiation > 100 || pollution > 100) {
-    worldState = "Danger";
+  let worldState: WorldState = { value: "Safe", name: "World" };
+  for (const [state, thresholds] of Object.entries(WORLD_STATE_THRESHOLDS)) {
+    if (thresholds.pollution !== undefined && pollution > thresholds.pollution) {
+      worldState = { value: state, name: "World" } as WorldState;
+      break;
+    }
+    if (thresholds.radiation !== undefined && radiation > thresholds.radiation) {
+      worldState = { value: state, name: "World" } as WorldState;
+      break;
+    }
+    if (thresholds.windSpeed !== undefined && windSpeed > thresholds.windSpeed) {
+      worldState = { value: state, name: "World" } as WorldState;
+      break;
+    }
+    if (thresholds.temperature !== undefined && (temperature > thresholds.temperature[0] || temperature < thresholds.temperature[1])) {
+      worldState = { value: state, name: "World" } as WorldState;
+      break;
+    }
   }
 
   return {
-    seed: {
-      value: worldSeed,
-      name: "Seed",
-    },
-    worldState: {
-      name: "World",
-      value: worldState,
-    } as WorldState,
-    name: {
-      value: worldName,
-      name: "Name",
-    },
-    temperature: {
-      name: "Temperature",
-      value: temperature,
-      max: 50,
-      min: -20,
-    },
-    humidity: {
-      name: "Humidity",
-      value: humidity,
-      max: 150,
-      min: -50,
-    },
-    windSpeed: {
-      name: "Wind Speed",
-      value: windSpeed,
-      max: 100,
-      min: 0,
-    },
-    pollution: {
-      name: "Pollution",
-      value: pollution,
-      max: 100,
-      min: 0,
-    },
-    radiation: {
-      name: "Radiation",
-      value: radiation,
-      max: 100,
-      min: 0,
-    },
+    seed: { value: worldSeed, name: "Seed" },
+    worldState,
+    name: { value: "", name: "Name" },
+    temperature: { name: "Temperature", value: temperature, max: TEMPERATURE_RANGE[1], min: -TEMPERATURE_RANGE[0] },
+    humidity: { name: "Humidity", value: humidity, max: HUMIDITY_RANGE[1], min: HUMIDITY_RANGE[0] },
+    windSpeed: { name: "Wind Speed", value: windSpeed, max: WIND_SPEED_RANGE[1], min: HUMIDITY_RANGE[0] },
+    pollution: { name: "Pollution", value: pollution, max: POLLUTION_RANGE[1], min: POLLUTION_RANGE[0] },
+    radiation: { name: "Radiation", value: radiation, max: RADIATION_RANGE[1], min: RADIATION_RANGE[0] },
     weatherCondition,
     mapDetailes: [largeDetailes, mediumDetailes, smallDetailes],
   };
 };
 
-const randomRarestTypes = (): ArtifactType => {
+const getRandomArtifactType = (): ArtifactType => {
   const randomValue = Math.random();
-  if (randomValue < 0.6) {
-    return "usual";
-  } else if (randomValue < 0.8) {
-    return "rare";
-  } else {
-    return "legendary";
+  let cumulativeProbability = 0;
+
+  for (const [type, probability] of Object.entries(ARTIFACT_PROBABILITIES)) {
+    cumulativeProbability += probability;
+    if (randomValue < cumulativeProbability) {
+      return type as ArtifactType;
+    }
   }
+
+  return "usual" as ArtifactType; 
 };
 
 const generateUniqArtefactName = () => {
-  const adjectives = [
-    "Ancient",
-    "Forgotten",
-    "Mysterious",
-    "Magical",
-    "Enchanted",
-    "Cursed",
-    "Blessed",
-    "Divine",
-    "Sacred",
-    "Holy",
-    "Unholy",
-    "Dark",
-    "Light",
-    "Eternal",
-    "Infinite",
-    "Infernal",
-    "Celestial",
-    "Abyssal",
-    "Eldritch",
-    "Arcane",
-    "Mystic",
-    "Mythical",
-    "Legendary",
-  ];
-
-  const adjectivesExtra = [
-    "Golden",
-    "Silver",
-    "Bronze",
-    "Crystal",
-    "Sapphire",
-    "Ruby",
-    "Emerald",
-    "Diamond",
-    "Amethyst",
-    "Topaz",
-    "Opal",
-    "Pearl",
-    "Obsidian",
-    "Onyx",
-    "Jade",
-    "Ivory",
-    "Platinum",
-    "Titanium",
-    "Copper",
-    "Iron",
-    "Steel",
-    "Adamantium",
-    "Mithril",
-    "Orichalcum",
-    "Plutonium",
-    "Uranium",
-    "Neptunium",
-    "Mercury",
-    "Lead",
-    "Tin",
-    "Aluminium",
-    "Cobalt",
-    "Nickel",
-    "Zinc",
-    "Oxygen",
-    "Nitrogen",
-    "Hydrogen",
-    "Helium",
-    "Lithium",
-    "Beryllium",
-    "Boron",
-    "Sodium",
-    "Potassium",
-    "Calcium",
-    "Scandium",
-    "Titanium",
-    "Vanadium",
-    "Chromium",
-    "Manganese",
-    "Iron",
-    "Cobalt",
-    "Nickel",
-    "Copper",
-    "Zinc",
-    "Tin",
-    "Antimony",
-    "Tellurium",
-    "Iodine",
-    "Xenon",
-    "Caesium",
-    "Barium",
-    "Lanthanum",
-    "Cerium",
-    "Praseodymium",
-    "Neodymium",
-    "Promethium",
-    "Samarium",
-    "Europium",
-    "Gadolinium",
-    "Terbium",
-  ];
-
-  const randomAdjective1 =
-    adjectivesExtra[Math.floor(Math.random() * adjectivesExtra.length)];
-  const randomAdjective2 =
-    adjectives[Math.floor(Math.random() * adjectives.length)];
+  const randomAdjective1 = ADJECTIVES_EXTRA[Math.floor(Math.random() * ADJECTIVES_EXTRA.length)];
+  const randomAdjective2 = ADJECTIVES[Math.floor(Math.random() * ADJECTIVES.length)];
   const name = `${randomAdjective1} ${randomAdjective2}`;
   return name;
 };
 
 const generateUniqArtefactParams = () => {
-  const weight = Math.floor(Math.random() * 1000);
-  const power = Math.floor(Math.random() * 1000);
-  // physical properties
-  const width = Math.floor(Math.random() * 100);
-  const height = Math.floor(Math.random() * 100);
-  const density = Math.floor(Math.random() * 100);
-  // chemical properties
-  const atomicNumber = Math.floor(Math.random() * 100);
-  const meltingPoint = Math.floor(Math.random() * 100);
-  const boilingPoint = Math.floor(Math.random() * 100);
-  const radioactivity = Math.floor(Math.random() * 100);
+  const generateRandomValue = (max: number) => Math.floor(Math.random() * max);
 
-  const collectAllParams = {
-    weight: {
-      name: "Weight",
-      value: weight,
-    },
-    power: {
-      name: "Power",
-      value: power,
-    },
-    width: {
-      name: "Width",
-      value: width,
-    },
-    height: {
-      name: "Height",
-      value: height,
-    },
-    density: {
-      name: "Density",
-      value: density,
-    },
-    atomicNumber: {
-      name: "Atomic Number",
-      value: atomicNumber,
-    },
-    meltingPoint: {
-      name: "Melting Point",
-      value: meltingPoint,
-    },
-    boilingPoint: {
-      name: "Boiling Point",
-      value: boilingPoint,
-    },
-    radioactivity: {
-      name: "Radioactivity",
-      value: radioactivity,
-    },
+  return {
+    weight: { name: "Weight", value: generateRandomValue(1000) },
+    power: { name: "Power", value: generateRandomValue(1000) },
+    width: { name: "Width", value: generateRandomValue(100) },
+    height: { name: "Height", value: generateRandomValue(100) },
+    density: { name: "Density", value: generateRandomValue(100) },
+    atomicNumber: { name: "Atomic Number", value: generateRandomValue(100) },
+    meltingPoint: { name: "Melting Point", value: generateRandomValue(100) },
+    boilingPoint: { name: "Boiling Point", value: generateRandomValue(100) },
+    radioactivity: { name: "Radioactivity", value: generateRandomValue(100) },
   };
-
-  return collectAllParams;
 };
 
 export const generateArtifacts = ({
-  amount = 10,
+  amount = ARTIFACT_AMOUNT,
   worldId = "",
 }: {
   amount?: number;
@@ -289,7 +140,7 @@ export const generateArtifacts = ({
       x: Math.floor(Math.random() * 100) - 50,
       y: -10,
       z: Math.floor(Math.random() * 100) - 50,
-      type: randomRarestTypes(),
+      type: getRandomArtifactType(),
       chunkX: Math.floor(Math.random() * 10) - 5,
       chunkY: Math.floor(Math.random() * 10) - 5,
       visible: true,

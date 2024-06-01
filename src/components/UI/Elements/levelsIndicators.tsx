@@ -1,5 +1,5 @@
 import { useGameStore } from "../../../store/store";
-import { maxLevel, minLevel } from "../../../store/worldParamsSlice";
+import { GROUND_MAX_LEVEL, GROUND_MIN_LEVEL } from "../../../store/worldConfig";
 
 export const LevelsIndicators = () => {
   const activePosition = useGameStore((state) => state.activePosition);
@@ -12,7 +12,7 @@ export const LevelsIndicators = () => {
     0,
     Math.min(
       100,
-      (activePosition.y - 1 - minLevel) * (100 / (maxLevel - minLevel)),
+      (activePosition.y - 1 - GROUND_MIN_LEVEL) * (100 / (GROUND_MAX_LEVEL - GROUND_MIN_LEVEL)),
     ),
   );
 

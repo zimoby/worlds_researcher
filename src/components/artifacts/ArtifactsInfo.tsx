@@ -1,7 +1,7 @@
 import { useGameStore } from "../../store/store";
 import { convertChunkCoordinateToName } from "../../utils/functions";
 import { BasicPanelWrapper } from "../UI/BasicPanelWrapper";
-import { artifactAmount } from "../../store/worldParamsSlice";
+import { ARTIFACT_AMOUNT } from "../../store/worldConfig";
 
 export const ArtifactsInfo = () => {
   const artifacts = useGameStore((state) => state.artifacts);
@@ -13,7 +13,7 @@ export const ArtifactsInfo = () => {
     <BasicPanelWrapper
       height="h-32"
       width="w-fit"
-      titleText={`Artifacts: ${artifacts.length} / ${artifactAmount}`}
+      titleText={`Artifacts: ${artifacts.length} / ${ARTIFACT_AMOUNT}`}
       opacity={opacity}
     >
       <div className="size-full">
