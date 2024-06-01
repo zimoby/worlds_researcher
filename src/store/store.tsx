@@ -6,7 +6,6 @@ import {
 } from "./uiPanelsStateSlice";
 import { MapParamsSlice, createMapParamsSlice } from "./mapParamsSlice";
 import { GameStateSlice, createGameStateSlice } from "./gameStateSlice";
-import { createUpgradeSlice, UpgradeSlice } from "./upgradeStateSlice";
 
 export const DEV_MODE = import.meta.env.VITE_APP_MODE === "development";
 
@@ -23,13 +22,11 @@ export type GameStoreState =
   WorldParamsSlice &
   UiPanelsStateSlice &
   MapParamsSlice &
-  GameStateSlice &
-  UpgradeSlice;
+  GameStateSlice;
 
 export const useGameStore = create<GameStoreState>((...a) => ({
   ...createWorldParamsSlice(...a),
   ...createUiPanelsStateSlice(...a),
   ...createMapParamsSlice(...a),
   ...createGameStateSlice(...a),
-  ...createUpgradeSlice(...a),
 }));
