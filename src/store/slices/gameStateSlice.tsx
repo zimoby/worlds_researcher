@@ -1,6 +1,7 @@
 import { StateCreator } from "zustand";
 import { GameStoreState } from "../store";
 import {
+  DEV_MODE,
   SETTING_DISABLE_ANIMATIONS,
   SETTING_DISABLE_MUSIC,
   SETTING_DISABLE_SOUNDS,
@@ -36,6 +37,7 @@ export interface GameStateSlice {
   resetValues: boolean;
 
   autoPilot: boolean;
+  autoPilotRange: number;
 
   message: string;
   addNewMessage: (message: string) => void;
@@ -91,7 +93,9 @@ export const createGameStateSlice: StateCreator<
 
   resetValues: false,
 
-  autoPilot: false,
+  autoPilot: DEV_MODE ? true : false,
+  autoPilotRange: 10,
+
   message: "",
 
   addNewMessage: (message: string) => {

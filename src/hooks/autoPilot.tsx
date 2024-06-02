@@ -5,14 +5,28 @@ import { movementDirections } from "../store/constants/worldConfig";
 export const useAutoPilot = () => {
   const currentLocation = useGameStore((state) => state.currentLocation);
   const autoPilot = useGameStore((state) => state.autoPilot);
+  const autoPilotRange = useGameStore((state) => state.autoPilotRange);
   const prevLocation = useRef(currentLocation);
 
   useEffect(() => {
     const randomMoveDirection = () => {
+      let validDirections = movementDirections.filter(direction => {
+        const newX = currentLocation.x + direction.x;
+        const newY = currentLocation.y + direction.y;
+        return (
+          newX <= autoPilotRange &&
+          newX >= -autoPilotRange &&
+          newY <= autoPilotRange &&
+          newY >= -autoPilotRange
+        );
+      });
+
+      if (validDirections.length === 0) {
+        validDirections = movementDirections;
+      }
+
       const randomDirection =
-        movementDirections[
-          Math.floor(Math.random() * movementDirections.length)
-        ];
+        validDirections[Math.floor(Math.random() * validDirections.length)];
       useGameStore.setState({ moveDirection: randomDirection });
     };
 
@@ -25,5 +39,5 @@ export const useAutoPilot = () => {
       randomMoveDirection();
       prevLocation.current = currentLocation;
     }
-  }, [autoPilot, currentLocation]);
+  }, [autoPilot, currentLocation, autoPilotRange]);
 };
