@@ -76,7 +76,7 @@ export const FadingEffect: React.FC<FadingEffectProps> = ({
         }
       });
     }
-  });
+  },15);
 
   return <group ref={groupRef}>{children}</group>;
 };

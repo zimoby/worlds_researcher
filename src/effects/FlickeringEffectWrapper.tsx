@@ -52,7 +52,7 @@ export const FlickeringEffect: React.FC<FlickeringEffectProps> = ({
         }
       });
     }
-  });
+  },15);
 
   return <group ref={groupRef}>{children}</group>;
 };

@@ -71,7 +71,7 @@ export const BeaconGroup = () => {
         circleObject.rotateY(delta / 2);
       }
     });
-  });
+  }, 30);
 
   return (
     <group visible={firstStart}>

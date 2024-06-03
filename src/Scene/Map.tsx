@@ -73,7 +73,7 @@ export const Map = () => {
       valueStartedDecr.current = false;
       valueStarted.current = false;
     }
-  });
+  },30);
 
   return (
     <group visible={firstStart}>

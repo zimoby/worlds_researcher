@@ -124,7 +124,7 @@ export const ArtifactsGroup = () => {
         }
       }
     });
-  });
+  }, 30);
 
   return (
     <group visible={firstStart}>
