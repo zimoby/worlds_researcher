@@ -173,4 +173,18 @@ export const parseColors = (
       colorsObj[key].color.b,
     ],
   }));
-};
+};export function formatTime(timestamp) {
+  const date = new Date(timestamp);
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+  return `${hours}:${minutes}`;
+}
+export function getElapsedTime(startTime: number) {
+  const now = Date.now();
+  const elapsedMilliseconds = now - startTime;
+  const elapsedMinutes = Math.floor(elapsedMilliseconds / 60000);
+  const elapsedHours = Math.floor(elapsedMinutes / 60);
+  const remainingMinutes = elapsedMinutes % 60;
+  return `${elapsedHours.toString().padStart(2, '0')}:${remainingMinutes.toString().padStart(2, '0')}`;
+}
+

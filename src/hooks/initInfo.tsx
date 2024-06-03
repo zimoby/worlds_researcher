@@ -19,9 +19,9 @@ const initializeLocalStorage = (
 };
 
 export const useInitInfo = () => {
-  const firstStart = useGameStore((state) => state.firstStart);
-  const terrainLoading = useGameStore((state) => state.terrainLoading);
-  const updateMapSize = useGameStore((state) => state.updateMapSize);
+  // const firstStart = useGameStore((state) => state.firstStart);
+  // const terrainLoading = useGameStore((state) => state.terrainLoading);
+  // const updateMapSize = useGameStore((state) => state.updateMapSize);
   const updateVariableInLocalStorage = useGameStore(
     (state) => state.updateVariableInLocalStorage,
   );
@@ -54,12 +54,12 @@ export const useInitInfo = () => {
     );
   }, [updateVariableInLocalStorage]);
 
-  useEffect(() => {
-    if (!terrainLoading && !firstStart) {
-      useGameStore.setState({ firstStart: true });
-    }
-    if (!terrainLoading && firstStart) {
-      updateMapSize(1);
-    }
-  }, [terrainLoading, firstStart, updateMapSize]);
+  // useEffect(() => {
+  //   if (!terrainLoading && !firstStart) {
+  //     useGameStore.setState({ firstStart: true });
+  //   }
+  //   if (!terrainLoading && firstStart) {
+  //     updateMapSize(1);
+  //   }
+  // }, [terrainLoading, firstStart, updateMapSize]);
 };

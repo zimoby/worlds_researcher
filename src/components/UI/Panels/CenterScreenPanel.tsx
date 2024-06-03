@@ -6,9 +6,10 @@ import { LevelsIndicators } from "../Elements/levelsIndicators";
 import { FlickeringHtmlEffect } from "../../../effects/AppearingUiEffectWrapper";
 import { DroneMoveAngleUI } from "../../drone/droneMoveAngle";
 import { useModalPriority } from "../../../hooks/modalPriority";
-import { MiniMap } from "../Elements/planetChunks";
+import { MiniMap } from "../Elements/miniMap";
 import { EducationSteps } from "../Elements/eduSteps";
 import { DirectionIndicators } from "../Elements/directionIndicators";
+import { GameTime } from "../Elements/time";
 
 export const CenterScreenPanel = () => {
   const animationFirstStage = useGameStore(
@@ -51,6 +52,9 @@ export const CenterScreenPanel = () => {
                 <div className="absolute bottom-0 left-0 flex flex-row items-end justify-end gap-3 p-5">
                   <MiniMap />
                   <DirectionIndicators />
+                </div>
+                <div className="absolute bottom-0 left-1/4 flex flex-row items-end justify-end gap-3 p-2">
+                  <GameTime />
                 </div>
               </FlickeringHtmlEffect>
             </div>

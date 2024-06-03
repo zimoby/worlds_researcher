@@ -1,7 +1,27 @@
 import { SliderWithInput } from "./uiLibrary";
 import { useGameStore } from "../../../store/store";
 import { BasicPanelWrapper } from "../BasicPanelWrapper";
-import { useMemo } from "react";
+
+const mapParams = {
+  mapWidthParams: {
+    min: 1,
+    max: 200,
+    label: "Map Width",
+    storeName: "width",
+  },
+  mapDepthParams: {
+    min: 1,
+    max: 200,
+    label: "Map Depth",
+    storeName: "depth",
+  },
+  mapResolutionParams: {
+    min: 2,
+    max: 7,
+    label: "Resolution",
+    storeName: "resolution",
+  },
+};
 
 export const SystemControls = () => {
   const updateMapParam = useGameStore((state) => state.updateMapParam);
@@ -10,28 +30,7 @@ export const SystemControls = () => {
   const mapResolution = useGameStore((state) => state.mapParams.resolution);
   const mapSpeed = useGameStore((state) => state.mapParams.speed);
 
-  const mapParams = useMemo(() => {
-    const mapWidthParams = {
-      min: 1,
-      max: 200,
-    };
-
-    const mapDepthParams = {
-      min: 1,
-      max: 200,
-    };
-
-    const mapResolutionParams = {
-      min: 2,
-      max: 7,
-    };
-
-    return { mapWidthParams, mapDepthParams, mapResolutionParams };
-  }, []);
-
-  const opacity = useGameStore(
-    (state) => state.uiPanelsState.systemControlsPanel.opacity,
-  );
+  const opacity = useGameStore((state) => state.uiPanelsState.systemControlsPanel.opacity);
 
   return (
     <BasicPanelWrapper titleText="System Controls" opacity={opacity}>

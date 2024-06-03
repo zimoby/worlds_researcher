@@ -1,4 +1,4 @@
-import { MiniMap } from "../Elements/planetChunks";
+import { MiniMap } from "../Elements/miniMap";
 import { ModalWrapper } from "./templateComponents";
 
 export const MapModal = () => {

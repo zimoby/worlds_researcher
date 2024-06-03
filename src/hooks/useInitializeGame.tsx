@@ -6,6 +6,8 @@ export const useInitializeGame = () => {
   const colors = useGameStore((state) => state.colors);
   const firstStart = useGameStore((state) => state.firstStart);
   const regenerateWorld = useGameStore((state) => state.regenerateWorld);
+  const terrainLoading = useGameStore((state) => state.terrainLoading);
+  const updateMapSize = useGameStore((state) => state.updateMapSize);
 
   useEffect(() => {
     setColors(colors);
@@ -16,4 +18,13 @@ export const useInitializeGame = () => {
       regenerateWorld();
     }
   }, [firstStart, regenerateWorld]);
+
+  useEffect(() => {
+    if (!terrainLoading && !firstStart) {
+      useGameStore.setState({ firstStart: true });
+    }
+    if (!terrainLoading && firstStart) {
+      updateMapSize(1);
+    }
+  }, [terrainLoading, firstStart, updateMapSize]);
 };

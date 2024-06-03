@@ -41,7 +41,7 @@ export const GameCanvas = () => {
 
   return (
     <Canvas flat shadows dpr={[1, 1.5]} gl={{ antialias: false }}>
-      {DEV_MODE && <Stats showPanel={0} />}
+      {DEV_MODE && <Stats showPanel={2} />}
       <SceneSettings />
       <Suspense fallback={null}>
         <group position={[0, 0, 0]}>

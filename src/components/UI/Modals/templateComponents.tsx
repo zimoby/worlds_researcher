@@ -32,31 +32,37 @@ export const ModalWrapper = ({
     };
   }, [modalName, showModal, updateStoreProperty]);
 
+  if (!showModal) { return null; }
+
   return (
-    <div
-      className="fixed z-50 flex size-full items-center justify-center bg-black/50"
-      style={{ display: showModal ? "flex" : "none" }}
-    >
-      <div
-        className="aug-border-yellow-500 relative flex h-fit w-96 flex-col border border-uilines bg-black/80"
-        style={{
-          maxHeight: "calc(100% - 10rem)",
-        }}
-        data-augmented-ui="border tl-2-clip-x br-2-clip-x --aug-border-bg"
-      >
-        <div className="flex items-center justify-end">
+    <>
+      {showModal && (
+        <div
+          className="fixed z-50 flex size-full items-center justify-center bg-black/50"
+          style={{ display: showModal ? "flex" : "none" }}
+        >
           <div
-            className="flex size-8 cursor-pointer items-center justify-center text-uitext hover:bg-uilines hover:text-neutral-900"
-            onClick={() => updateStoreProperty(modalName, false)}
+            className="aug-border-yellow-500 relative flex h-fit w-96 flex-col border border-uilines bg-black/80"
+            style={{
+              maxHeight: "calc(100% - 10rem)",
+            }}
+            data-augmented-ui="border tl-2-clip-x br-2-clip-x --aug-border-bg"
           >
-            <div className="rotate-45 text-center text-4xl">+</div>
+            <div className="flex items-center justify-end">
+              <div
+                className="flex size-8 cursor-pointer items-center justify-center text-uitext hover:bg-uilines hover:text-neutral-900"
+                onClick={() => updateStoreProperty(modalName, false)}
+              >
+                <div className="rotate-45 text-center text-4xl">+</div>
+              </div>
+            </div>
+            <div className="orbitron flex h-8 w-full items-center justify-center bg-uilines text-2xl text-neutral-900">
+              {title}
+            </div>
+            {children}
           </div>
         </div>
-        <div className="orbitron flex h-8 w-full items-center justify-center bg-uilines text-2xl text-neutral-900">
-          {title}
-        </div>
-        {children}
-      </div>
-    </div>
+      )}
+    </>
   );
 };

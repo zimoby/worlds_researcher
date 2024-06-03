@@ -40,13 +40,14 @@ export interface GameStateSlice {
   autoPilotRange: number;
 
   message: string;
-  addNewMessage: (message: string) => void;
   logs: LogWithIdT[];
   eventsLog: LogWithIdT[];
 
+  gameStartTime: number;
+  
+  addNewMessage: (message: string) => void;
   updateStoreProperty: (paramName: string, value: unknown) => void;
   updateVariableInLocalStorage: (variableName: string, value: boolean) => void;
-
   addLog: (log: string) => void;
   addEventLog: (eventName: string) => void;
 }
@@ -63,24 +64,11 @@ export const createGameStateSlice: StateCreator<
   disableMusic: localStorage.getItem(SETTING_DISABLE_MUSIC) === "true",
 
   educationMode: localStorage.getItem(SETTING_EDUCATION_MODE) === "true",
-  toggleEducationMode: () => {
-    const newValue = !get().educationMode;
-    set({ educationMode: newValue });
-    localStorage.setItem(SETTING_EDUCATION_MODE, newValue.toString());
-    if (!newValue) {
-      set({ educationalStepIndex: 0 });
-    }
-  },
 
   invertDirection: localStorage.getItem(SETTING_INVERT_DIRECTION) === "true",
   startScreen: localStorage.getItem(SETTING_START_SCREEN) === "true",
 
   educationalStepIndex: 0,
-  increaseEducationalStepIndex: () => {
-    set((state) => {
-      return { educationalStepIndex: state.educationalStepIndex + 1 };
-    });
-  },
 
   startToLoadFiles: false,
   loadingProgress: 0,
@@ -97,13 +85,9 @@ export const createGameStateSlice: StateCreator<
   autoPilotRange: 10,
 
   message: "",
+  gameStartTime: Date.now(),
 
-  addNewMessage: (message: string) => {
-    if (get().message === message) {
-      return;
-    }
-    set({ message });
-  },
+
 
   logs: [],
   eventsLog: [],
@@ -114,6 +98,26 @@ export const createGameStateSlice: StateCreator<
   updateVariableInLocalStorage: (variableName: string, value: boolean) => {
     set({ [variableName]: value });
     localStorage.setItem(variableName, value.toString());
+  },
+  toggleEducationMode: () => {
+    const newValue = !get().educationMode;
+    set({ educationMode: newValue });
+    localStorage.setItem(SETTING_EDUCATION_MODE, newValue.toString());
+    if (!newValue) {
+      set({ educationalStepIndex: 0 });
+    }
+  },
+
+  increaseEducationalStepIndex: () => {
+    set((state) => {
+      return { educationalStepIndex: state.educationalStepIndex + 1 };
+    });
+  },
+  addNewMessage: (message: string) => {
+    if (get().message === message) {
+      return;
+    }
+    set({ message });
   },
   addLog: (log) => {
     const uniqueLog: LogWithIdT = {
