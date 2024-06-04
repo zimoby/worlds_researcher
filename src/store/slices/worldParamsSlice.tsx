@@ -21,6 +21,7 @@ import {
 } from "../types";
 import { ArtifactType } from "../types";
 import { BeaconType, ArtifactT } from "../types";
+import { addEmptyBeacons } from "../../components/beacons/beaconUtils";
 
 export interface WorldParamsSlice {
   worldParams: WorldParamsType;
@@ -32,6 +33,8 @@ export interface WorldParamsSlice {
   terrainColors: TerrainTypesT;
   visitedWorlds: WorldParamsType[];
   weatherCondition: WeatherCondition;
+  cleanBeacon: (id: string) => void;
+  updateEmptyBeacon: (beaconData: BeaconType) => void;
   updateWeather: () => WeatherCondition | null;
   addVisitedWorld: (params: WorldParamsType) => void;
   regenerateWorld: () => void;
@@ -59,6 +62,54 @@ export const createWorldParamsSlice: StateCreator<
   worldParams: generateWorld(),
 
   weatherCondition: "Mild",
+
+  updateEmptyBeacon: (beaconData: BeaconType) => {
+    set((state) => {
+      return {
+        beacons: state.beacons.map((beacon) => {
+          if (beacon.id === beaconData.id) {
+            return { ...beaconData };
+          }
+          return beacon;
+        }),
+      };
+    });
+  },
+
+  cleanBeacon: (id: string) => {
+    set((state) => {
+      return {
+        beacons: state.beacons.map((beacon) => {
+          if (beacon.id === id) {
+            return {
+              ...beacon,
+              resource: "empty",
+              armor: 0,
+              collectionLevel: 0,
+            };
+          }
+          return beacon;
+        }),
+      };
+    });
+  },
+
+  // updateBeacon: (id: string) => {
+  //   set((state) => {
+  //     const beacon = state.beacons.find((beacon) => beacon.id === id);
+  //     if (beacon) {
+  //       return {
+  //         beacons: state.beacons.map((beacon) => {
+  //           if (beacon.id === id) {
+  //             return { ...beacon };
+  //           }
+  //           return beacon;
+  //         }),
+  //       };
+  //     }
+  //     return state;
+  //   });
+  // },
 
   updateWeather: (): WeatherCondition | null => {
     const newWeather = generateWeather();
@@ -94,7 +145,7 @@ export const createWorldParamsSlice: StateCreator<
         amount: ARTIFACT_AMOUNT,
         worldId: newWorldParams.seed.value,
       }),
-      beacons: [],
+      beacons: addEmptyBeacons(),
       currentOffset: { x: 0, y: 0 },
       currentLocation: { x: 0, y: 0 },
       locationsHistory: [{ x: 0, y: 0 }],

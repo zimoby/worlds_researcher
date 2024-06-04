@@ -45,13 +45,15 @@ export const BeaconGroup = () => {
     [beacons],
   );
 
+  // console.log("beaconsref", {beaconRefs, beacons});
+
   const { speedRef: increasingSpeedRef } = useIncreasingSpeed(0, 1, 0.01, 2);
 
   useFrame((_, delta) => {
     beaconRefs.forEach((beaconRef, index) => {
       const beaconObject = beaconRef.current;
       const circleObject = circleRefs[index].current;
-      if (beaconObject) {
+      if (beaconObject && beacons[index].resource !== "empty") {
         const checkBoundaries = isOutOfBound(
           { x: beaconObject.position.x, y: beaconObject.position.z },
           width,
@@ -65,6 +67,8 @@ export const BeaconGroup = () => {
         beaconObject.position.z -=
           deltaY * (delta * 100) * increasingSpeedRef.current;
         beaconObject.visible = !checkBoundaries.x && !checkBoundaries.y;
+      } else if (beaconObject && beacons[index].resource === "empty") {
+        beaconObject.visible = false;
       }
 
       if (circleObject) {

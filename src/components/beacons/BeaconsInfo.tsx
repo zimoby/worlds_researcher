@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useListAppearing } from "../../effects/ListAppearing";
 import { useGameStore } from "../../store/store";
 import { ChunkType } from "../../store/types";
@@ -15,18 +16,25 @@ export const BeaconsInfo = () => {
     (state) => state.increaseBeconsLimit,
   );
 
-  const transitions = useListAppearing(beacons);
+
+  const filterNonEmptyBeacons = useMemo(
+    () => beacons.filter((beacon) => beacon.resource !== "empty"),
+    [beacons],
+  );
+
+  const transitions = useListAppearing(filterNonEmptyBeacons);
+
 
   return (
     <BasicPanelWrapper
       height="h-32"
       width="w-fit"
-      titleText={`Beacons: ${beacons.length} / ${beaconsLimit}`}
+      titleText={`Beacons: ${filterNonEmptyBeacons.length} / ${beaconsLimit}`}
       opacity={opacity}
     >
       <>
-        {beacons.length === 0 && "No beacons"}
-        {beacons.length === beaconsLimit && (
+        {filterNonEmptyBeacons.length === 0 && "No beacons"}
+        {filterNonEmptyBeacons.length === beaconsLimit && (
           <button
             className="mb-1 flex h-5 w-48 cursor-pointer items-center justify-center bg-uilines px-2 text-center leading-4 text-neutral-900 hover:bg-orange-500"
             onClick={increaseBeconsLimit}

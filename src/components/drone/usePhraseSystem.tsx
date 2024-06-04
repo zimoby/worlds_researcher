@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { PhrasesCollection } from "./PhrasesCollection";
 import { useGameStore } from "../../store/store";
 import { SETTING_EDUCATION_MODE } from "../../store/constants/appConstants";
@@ -52,8 +52,12 @@ const usePhraseSystem = () => {
 
   const [gameOverState, setGameOverState] = useState(false);
 
+  const notEmptyBeaconsLength = useMemo(() => {
+    return beacons.filter((beacon) => beacon.resource !== "empty").length;
+  }, [beacons]);
+
   useEffect(() => {
-    if (energy <= 0 && beacons.length === 0) {
+    if (energy <= 0 && notEmptyBeaconsLength === 0) {
       setGameOverState(true);
       setActivePhrase({
         phrase: "SOS. No energy left. We are lost on this planet.",
@@ -65,7 +69,7 @@ const usePhraseSystem = () => {
       };
       setColors(newColors);
     }
-  }, [energy, beacons.length, setColors]);
+  }, [energy, notEmptyBeaconsLength, setColors]);
 
   useEffect(() => {
     if (!educationMode) {
@@ -83,7 +87,7 @@ const usePhraseSystem = () => {
     if (
       firstGreetings &&
       animationFirstStage &&
-      beacons.length > 0 &&
+      notEmptyBeaconsLength > 0 &&
       educationalStepIndex === 1
     ) {
       if (educationalStepIndex < educationalStepsPhrases.length - 1) {
@@ -126,7 +130,7 @@ const usePhraseSystem = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    beacons.length,
+    notEmptyBeaconsLength,
     educationMode,
     educationalStepIndex,
     animationFirstStage,

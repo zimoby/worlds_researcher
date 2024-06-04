@@ -152,6 +152,11 @@ export const resourceTypes: Record<
     threshold: 1,
     score: 1,
   },
+  empty: {
+    color: new Color(0),
+    threshold: 0,
+    score: 0,
+  },
 };
 
 // MAP
